@@ -37,40 +37,36 @@
         <div class="clock" id="clock"></div>
     </div>
 
-<div class="content">
-        <div class="rm-calculator">
-            
-            <div class="calculator">
-                <h2>Calcula tu Repetición Máxima</h2>
-                <label for="exercise">Ejercicio
-                    <select id="exercise">
-                    <option value="BSquat">Back Squat</option>
-                    <option value="FSquat">Front Squat</option>
-                    <option value="Deadlift">Deadlift</option>
-                    <option value="Bench Press">Bench Press</option>
-                    <option value="Shoulder Press">Shoulder Press</option>
-                    <option value="Pull-ups">Pull-ups</option>
-                    <option value="Push-ups">Push-ups</option>
-                    <option value="Burpees">Burpees</option>
-                    <option value="Box Jumps">Box Jumps</option>
-                    <!-- Agrega más opciones de ejercicios según sea necesario -->
-                    </select>
-                </label>
-                
-                <label for="weight">Peso (kg)
-                    <input type="number" id="weight" min="0" step="0.5">
-                </label>
-                <button id="calculate">
-                    <i class="bi bi-calculator"></i>
-                    Calcular
-                </button>
-                <div id="result"></div>
+    <section class="tools-section">
+        <h1>Herramientas de Entrenamiento</h1>
+        <div class="modulos tools-grid">
+            <div id="modul1" class="tool-card">
+                <i class="bi bi-calculator"></i>
+                <h2>Calculadora RM</h2>
+                <p>Calcula tu Repetición Máxima y porcentajes de entrenamiento</p>
+                <a href="rm.html" class="tool-button">CALCULAR RM</a>
             </div>
+            <div id="modul2" class="tool-card">
+                <i class="bi bi-stopwatch"></i>
+                <h2>For Time</h2>
+                <p>Cronómetro y temporizador para tus WODs</p>
+                <a href="fortime.html" class="tool-button">INICIAR</a>
+            </div>
+            <div id="modul3" class="tool-card">
+                <i class="bi bi-lightning"></i>
+                <h2>Ejercicios</h2>
+                <p>Biblioteca de ejercicios y técnicas</p>
+                <a href="ejercicios.html" class="tool-button">EJERCICIOS</a>
+            </div><!--  -->
+            <div id="modul4" class="tool-card">
+                <i class="bi bi-calendar"></i>
+                <h2>Horarios</h2>
+                <p>Horarios - Clases - Coaches</p>
+                <a href="horarios.html" class="tool-button">HORARIOS</a>
+            </div><!--  -->
         </div>
-
+    </section>
     
-    </div>
-
     <footer class="footer-distributed">
         <div class="footer-container">
             <div class="footer-info">
@@ -89,7 +85,4 @@
         </div>
     </footer>
 
-    <script src="script.js"></script>
- 
- </body>
- </html>
+   <script src="script.js"></script>
