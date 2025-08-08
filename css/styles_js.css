@@ -1,0 +1,266 @@
+
+.content {
+    max-width: 800px;
+    margin: 0 auto;
+    padding: 20px;
+}
+
+/***************************************/
+/*calculadora RM*/
+
+.rm-calculator {
+    flex-basis: 45%;
+}
+
+.calculator {
+    background-color: #3333334b;
+    padding: 20px;
+    border-radius: 4px;
+    color: #fff;
+}
+
+.calculator label,
+.calculator select,
+.calculator input {
+    display: block;
+    margin-bottom: 10px;
+    width: 100%;
+    /* padding: 10px; */
+    border: none;
+    border-radius: 4px;
+    background-color: #fff;
+    color: #333;
+}
+
+.calculator label {
+    font-weight: bold;
+}
+
+.calculator input[type="number"]:focus,
+.calculator select:focus {
+    outline: none;
+}
+
+.calculator button {
+    background-color: red;
+    color: #fff;
+    border: none;
+    padding: 10px 20px;
+    border-radius: 4px;
+    cursor: pointer;
+    width: 100%;
+}
+
+.calculator button:hover {
+    background-color: red,
+}
+
+#result {
+    margin-top: 10px;
+    
+}
+
+.stopwatch-container {
+    flex-basis: 45%;
+}
+
+.stopwatch,
+.timer {
+    background-color: #33333396;
+    padding: 20px;
+    border-radius: 0;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+}
+
+.timer .input-group {
+    display: flex;
+    align-items: center;
+    margin-bottom: 10px;
+}
+
+.timer .input-group label {
+    margin-right: 10px;
+}
+
+.timer button {
+    margin-top: 10px;
+    width: 100%;
+}
+
+/* Estilos para el audio */
+#alarm-sound {
+    display: none;
+}
+
+/* Estilos para los timers */
+.timer-controls {
+    display: flex;
+    justify-content: center;
+    gap: 1rem;
+    margin-bottom: 2rem;
+}
+
+.timer-tab {
+    padding: 0.8rem 1.5rem;
+    border: none;
+    border-radius: 5px;
+    background-color: #333;
+    color: white;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    font-family: var(--font-heading);
+    font-weight: 600;
+}
+
+.timer-tab.active {
+    background-color: var(--color-rojo);
+}
+
+.timer-container {
+    max-width: 600px;
+    margin: 0 auto;
+    padding: 2rem;
+    background-color: rgba(51, 51, 51, 0.6);
+    border-radius: 10px;
+}
+
+.timer-section {
+    display: none;
+    text-align: center;
+}
+
+.timer-section.active {
+    display: block;
+}
+
+.timer-section h2 {
+    color: white;
+    font-family: var(--font-heading);
+    margin-bottom: 1.5rem;
+}
+
+.timer-buttons {
+    display: flex;
+    justify-content: center;
+    gap: 1rem;
+    margin-top: 2rem;
+}
+
+.timer-button {
+    padding: 1rem 2rem;
+    border: none;
+    border-radius: 5px;
+    background-color: var(--color-rojo);
+    color: white;
+    cursor: pointer;
+    font-size: 1.1rem;
+    transition: all 0.3s ease;
+    font-family: var(--font-heading);
+    font-weight: 600;
+}
+
+.timer-button:hover {
+    background-color: #c0392b;
+    transform: translateY(-2px);
+}
+
+/* Estilos específicos para el cronómetro */
+.stopwatch {
+    font-size: 4rem;
+    font-weight: bold;
+    color: white;
+    margin: 2rem 0;
+    font-family: monospace;
+    text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.3);
+}
+.timer-mode {
+    color: white;
+    font-size: 18px;
+    font-family: monospace;
+}
+
+
+/* Estilos específicos para Tabata */
+.tabata-display {
+    background-color: rgba(44, 62, 80, 0.8);
+    padding: 2rem;
+    border-radius: 10px;
+    margin: 2rem auto;
+    max-width: 400px;
+}
+
+.tabata-time {
+    font-size: 4rem;
+    font-weight: bold;
+    margin-bottom: 1rem;
+    color: white;
+    font-family: monospace;
+    text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.3);
+}
+.music-section .playlist-selector{
+    padding: 2rem;
+    border-radius: 10px;
+    margin: 2rem auto;
+    align-items: center;
+    font-family: 'Montserrat', Arial, sans-serif;
+    background: rgba(40, 40, 40, 0.65); /* Más translúcido */
+    color: #fff;
+    border: none;
+}
+
+.tabata-round {
+    font-size: 1.5rem;
+    margin-bottom: 0.5rem;
+    color: #ecf0f1;
+    font-family: var(--font-heading);
+}
+
+.tabata-phase {
+    font-size: 2rem;
+    font-weight: bold;
+    color: #e74c3c;
+    font-family: var(--font-heading);
+    text-transform: uppercase;
+    letter-spacing: 1px;
+}
+
+.tabata-phase.work {
+    color: #2ecc71;
+}
+
+.tabata-phase.rest {
+    color: #e74c3c;
+}
+
+.tabata-phase.prepare {
+    color: #f1c40f;
+}
+
+/* Media queries */
+@media screen and (max-width: 768px) {
+    .clock {
+        font-size: 32px;
+    }
+
+    .timer-container {
+        padding: 1rem;
+    }
+
+    .stopwatch,
+    .tabata-time {
+        font-size: 3rem;
+    }
+
+    .tabata-round {
+        font-size: 1.2rem;
+    }
+
+    .tabata-phase {
+        font-size: 1.5rem;
+    }
+
+    .timer-button {
+        padding: 0.8rem 1.5rem;
+        font-size: 1rem;
+    }
+}

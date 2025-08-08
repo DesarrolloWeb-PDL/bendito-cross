@@ -1,0 +1,243 @@
+:root{
+    --color-scheme: dark light;
+    --color-blanco: #ffffff;
+    --color-gris: #333;
+    --color-rojo: red;
+    --font-heading: 'Montserrat', sans-serif;
+    --font-body: 'Open Sans', sans-serif;
+}
+
+body {
+    font-family: var(--font-body);
+    margin: 0;
+    background-image: linear-gradient(rgba(0, 0, 0, 0.733), rgba(0, 0, 0, 0.733)), 
+    url(../img/crossfit-l_0.jpg);
+    background-size: cover;
+    background-repeat: no-repeat;
+    background-position: center;
+    background-attachment: fixed;
+}
+
+/* Agregamos las fuentes de Google Fonts */
+@import url('https://fonts.googleapis.com/css2?family=Montserrat:wght@400;600;700&family=Open+Sans:wght@400;600&display=swap');
+
+header {
+    text-align: center;
+    padding: 5% 10%;
+}
+
+a {
+    text-decoration: none;
+    color: var(--color-blanco);
+}
+
+p {
+    color: var(--color-blanco);
+}
+
+h2 {
+    font-family: var(--font-heading);
+    font-weight: 700;
+    text-align: center;
+    color: red;
+    margin-bottom: 20px;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+}
+
+/* Barra de Navegación */
+.navbar {
+    height: 60px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.nav_logo {
+    font-family: var(--font-heading);
+    font-weight: 700;
+    font-size: 30px;
+    color: var(--color-blanco);
+    animation-name: left-to-right;
+    animation-duration: 2s;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+}
+
+.nav_logo span {
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-start;
+    align-items: center;
+}
+
+.nav_logo :hover{
+    scale: 1.2;
+    color: var(--color-rojo);
+}
+
+.nav_logo span p {
+    font-size: 20px;
+    margin-top: auto;
+}
+
+.nav_items a {
+    font-family: var(--font-heading);
+    font-weight: 600;
+    font-size: 16px;
+    margin: 15px;
+    color: var(--color-blanco);
+    text-decoration: none;
+    position: relative;
+    letter-spacing: 0.5px;
+}
+
+#_items :hover{
+    color: var(--color-rojo);
+}
+
+.nav_items a::before {
+    content: "";
+    position: absolute;
+    left: 0;
+    bottom: 0;
+    width: 0;
+    height: 2px;
+    background: var(--color-gris);
+    transition: all 0.5s; 
+}
+
+.nav_items a:hover::before {
+    width: 100% !important;
+}
+
+.nav_toggle {
+    display: none;
+}
+
+/* Estilos para pantallas pequeñas (hasta 768px) */
+@media (max-width: 768px) {
+    .nav_items {
+        position: absolute;
+        top: 60px;
+        left: 0;
+        background-color: #333333c7;
+        display: flex;
+        flex-direction: column;
+        width: 100%;
+        height: auto;
+        transform: translateX(-100%);
+        transition: 0.3s ease all;
+    }
+
+    .nav_items a {
+        text-align: center;
+        color: var(--color-blanco);
+    }
+
+    .nav_toggle {
+        display: flex !important;
+        flex-direction: column;
+        margin: 15px;
+    }
+
+    .nav_toggle span {
+        width: 30px;
+        height: 4px;
+        background: var(--color-blanco);
+        margin-bottom: 5px;
+        border-radius: 2px;
+        transform-origin: 5px 0px;
+        transition: 0.2s linear;
+    }
+
+    .close span {
+        transform: rotate(45deg) translate(0px, 0px);
+    }
+
+    .close span:nth-child(2) {
+        display: none;
+    }
+
+    .close span:nth-child(3) {
+        transform: rotate(-45deg) translate(-5px, 1px);
+    }
+
+    .open {
+        transform: translateX(0) !important;
+    }
+}
+
+@keyframes left-to-right {
+    0% {
+        transform: translateX(-500px);
+        opacity: 0;
+    }
+
+    100% {
+        transform: translateX(0px);
+        opacity: 1;
+    }
+}
+
+
+/* carrusel */
+html, body {
+  margin: 0;
+  padding: 0;
+} 
+.pic-ctn {
+    width: 100vw;
+    height: 200px;
+  }
+  
+  @keyframes displaypublicidad{
+    0% {
+      transform: translateX(200px);
+      opacity: 0;
+    }
+    10% {
+      transform: translateX(0);
+      opacity: 1;
+    }
+    20% {
+      transform: translateX(0);
+      opacity: 1;
+    }
+    30% {
+      transform: translateX(-200px);
+      opacity: 0;
+    }
+    100% {
+      transform: translateX(-200px);
+      opacity: 0;
+    }
+  }
+  
+  .pic-ctn {
+    position: relative;
+    width: 100vw;
+    height: 300px;
+    margin-top: 15vh;
+  }
+  
+  .pic-ctn > #pic {
+    position: absolute;
+    top: 0;
+    left: calc(50% - 100px);
+    opacity: 0;
+    animation: displaypublicidad 10s infinite;
+  }
+  
+  #pic:nth-child(2) {
+    animation-delay: 2s;
+  }
+  #pic:nth-child(3) {
+    animation-delay: 4s;
+  }
+  #pic:nth-child(4) {
+    animation-delay: 6s;
+  }
+  #pic:nth-child(5) {
+    animation-delay: 8s;
+  }

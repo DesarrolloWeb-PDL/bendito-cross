@@ -1,0 +1,604 @@
+@import "body.css";
+@import "nav.css";
+@import "modulos.css";
+@import "videos.css";
+@import "styles_js.css";
+
+
+/* Reloj en tiempo real*/
+.clock-container {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin: 18px 0;
+}
+
+.clock {
+    font-size: 2rem;
+    font-family: 'Montserrat', monospace, Arial, sans-serif;
+    color: white;
+    background: red;
+    padding: 10px 28px;
+    border-radius: 12px;
+    box-shadow: 0 2px 8px rgba(0,0,0,0.10);
+    letter-spacing: 2px;
+}
+
+.footer-distributed {
+    background-color: #333;
+    color: white;
+    padding: 2rem 0;
+    margin-top: 2rem;
+}
+
+.footer-container {
+    max-width: 1200px;
+    margin: 0 auto;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 0 1rem;
+    flex-wrap: wrap;
+}
+
+.footer-info h3 {
+    margin: 0;
+    font-size: 1.5rem;
+    margin-bottom: 0.5rem;
+}
+
+.footer-description {
+    margin: 0;
+    font-size: 0.9rem;
+    color: #ccc;
+}
+
+.footer-contact {
+    text-align: center;
+}
+
+.footer-contact p {
+    margin: 0.5rem 0;
+    font-size: 0.9rem;
+}
+
+.footer-social {
+    display: flex;
+    gap: 1rem;
+}
+
+.footer-social a {
+    color: white;
+    font-size: 1.5rem;
+    transition: color 0.3s ease;
+}
+
+.footer-social a:hover {
+    color: #ccc;
+}
+
+@media (max-width: 768px) {
+    .footer-container {
+        flex-direction: column;
+        text-align: center;
+        gap: 1.5rem;
+    }
+    
+    .footer-social {
+        justify-content: center;
+    }
+}
+
+
+/* Estilos para la sección de herramientas */
+.tools-section {
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.tools-section h1 {
+    font-family: var(--font-heading);
+    font-weight: 700;
+    color: var(--color-blanco);
+    text-align: center;
+    margin-bottom: 2rem;
+    font-size: 2.5rem;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+}
+
+.tools-grid {
+    font-family: var(--font-heading);
+    font-weight: 700;
+    font-size: 24px;
+    text-align: center;
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    grid-auto-rows: min-content;
+    gap: 2rem;
+    margin: 2rem auto;
+    width: calc(100% - 4rem);
+    max-width: 1200px;
+}
+
+.tool-card {
+    background: rgba(73, 73, 73, 0.5);
+    border-radius: 4px;
+    padding: 1.5rem;
+    text-align: center;
+    transition: transform 0.3s ease, background-color 0.3s ease;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: flex-start;
+    min-height: fit-content;
+}
+
+.tool-card:hover {
+    transform: translateY(-5px);
+    background: rgba(73, 73, 73, 0.7);
+}
+
+.tool-card i {
+    font-size: 2.5rem;
+    color: var(--color-rojo);
+    margin-bottom: 1rem;
+}
+
+.tool-card h2 {
+    font-family: var(--font-heading);
+    font-weight: 700;
+    color: var(--color-blanco);
+    margin: 0 0 1rem 0;
+    font-size: 1.4rem;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+    line-height: 1.2;
+}
+
+.tool-card p {
+    font-family: var(--font-body);
+    color: rgb(255, 252, 252);
+    margin: 0 0 1.5rem 0;
+    font-size: 1rem;
+    line-height: 1.4;
+}
+
+.tool-button {
+    display: inline-block;
+    background-color: var(--color-rojo);
+    color: var(--color-blanco);
+    padding: 0.8rem 1.5rem;
+    border-radius: 4px;
+    text-transform: uppercase;
+    font-family: var(--font-heading);
+    font-weight: 600;
+    font-size: 0.9rem;
+    letter-spacing: 1px;
+    transition: all 0.3s ease;
+    margin-top: 1rem;
+}
+
+.tool-button:hover {
+    background-color: #cc0000;
+    transform: translateY(-2px);
+}
+
+/* Ajustes específicos para cada tarjeta */
+.tool-card:nth-child(1) {
+    grid-column: 1 / 2;
+    grid-row: 1 / 2;
+}
+
+.tool-card:nth-child(2) {
+    grid-column: 2 / 3;
+    grid-row: 1 / 2;
+}
+
+.tool-card:nth-child(3) {
+    grid-column: 1 / 2;
+    grid-row: 2 / 3;
+}
+
+.tool-card:nth-child(4) {
+    grid-column: 1 / 3;
+    grid-row: 3 / 4;
+}
+
+/* Ajustes responsivos para herramientas */
+@media (max-width: 768px) {
+    .tools-section h1 {
+        font-size: 1.75rem;
+        margin-bottom: 1.5rem;
+    }
+
+    .tools-grid {
+        gap: 1.5rem;
+        margin: 1.5rem auto;
+        width: calc(100% - 3rem);
+    }
+
+    .tool-card {
+        padding: 1.25rem;
+    }
+
+    .tool-card h2 {
+        font-size: 1.2rem;
+        margin-bottom: 0.75rem;
+    }
+
+    .tool-card p {
+        font-size: 0.9rem;
+        margin-bottom: 1.25rem;
+    }
+}
+
+@media (max-width: 480px) {
+    .tool-card {
+        padding: 8px;
+    }
+
+    .tool-card i {
+        font-size: 2.5rem;
+    }
+
+    .tool-button {
+        padding: 0.7rem 1.2rem;
+        font-size: 0.8rem;
+    }
+}
+
+/* Estilos para los timers */
+.timer-controls {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 1rem;
+    margin-bottom: 2rem;
+    position: relative;
+}
+
+.sound-toggle {
+    position: absolute;
+    right: 0;
+    background: none;
+    border: none;
+    color: var(--color-blanco);
+    font-size: 1.5rem;
+    cursor: pointer;
+    padding: 0.5rem;
+    transition: color 0.3s ease;
+}
+
+.sound-toggle:hover {
+    color: var(--color-rojo);
+}
+
+.sound-toggle.muted i::before {
+    content: "\F60C";
+}
+
+.timer-tab {
+    padding: 0.8rem 1.5rem;
+    border: none;
+    border-radius: 5px;
+    background-color: #333;
+    color: white;
+    cursor: pointer;
+    transition: all 0.3s ease;
+}
+
+.timer-tab.active {
+    background-color: #e74c3c;
+}
+
+.timer-container {
+    max-width: 600px;
+    margin: 0 auto;
+    padding: 2rem;
+}
+
+.timer-section {
+    display: none;
+    text-align: center;
+}
+
+.timer-section.active {
+    display: block;
+}
+
+.timer-buttons {
+    display: flex;
+    justify-content: center;
+    gap: 1rem;
+    margin-top: 2rem;
+}
+
+.timer-button {
+    padding: 1rem 2rem;
+    border: none;
+    border-radius: 5px;
+    background-color: #e74c3c;
+    color: white;
+    cursor: pointer;
+    font-size: 1.1rem;
+    transition: all 0.3s ease;
+}
+
+.timer-button:hover {
+    background-color: #c0392b;
+}
+
+/* Estilos específicos para Tabata */
+.tabata-display {
+    background-color: #33333396;
+    padding: 2rem;
+    border-radius: 10px;
+    margin: 2rem auto;
+    max-width: 400px;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+}
+
+.tabata-time {
+    font-size: 4rem;
+    font-weight: bold;
+    margin-bottom: 1rem;
+    color: white;
+    font-family: monospace;
+}
+
+.tabata-round {
+    font-size: 1.5rem;
+    margin-bottom: 1rem;
+    color: #ecf0f1;
+    width: 100%;
+    text-align: center;
+}
+
+.tabata-phase {
+    font-size: 2rem;
+    font-weight: bold;
+    color: #e74c3c;
+    width: 100%;
+    text-align: center;
+    padding: 0.5rem;
+    border-radius: 5px;
+    background-color: rgba(255, 255, 255, 0.1);
+    margin-top: 0.5rem;
+    transition: all 0.3s ease;
+}
+
+.tabata-phase.prepare {
+    color: #f1c40f;
+    background-color: rgba(241, 196, 15, 0.1);
+}
+
+.tabata-phase.work {
+    color: #2ecc71;
+    background-color: rgba(46, 204, 113, 0.1);
+}
+
+.tabata-phase.rest {
+    color: #e74c3c;
+    background-color: rgba(231, 76, 60, 0.1);
+}
+
+/* Ajustes responsivos para Tabata */
+@media (max-width: 480px) {
+    .tabata-display {
+        padding: 1.5rem;
+        margin: 1rem auto;
+        max-width: 90%;
+    }
+
+    .tabata-time {
+        font-size: 3rem;
+    }
+
+    .tabata-round {
+        font-size: 1.2rem;
+    }
+
+    .tabata-phase {
+        font-size: 1.5rem;
+    }
+}
+
+.timer-config {
+    margin-bottom: 20px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 15px;
+}
+
+.time-input {
+    display: flex;
+    align-items: center;
+    gap: 5px;
+    font-size: 1.5em;
+}
+
+.time-field {
+    width: 60px;
+    height: 40px;
+    text-align: center;
+    font-size: 1em;
+    border: 2px solid #333;
+    border-radius: 5px;
+    background-color: #fff;
+}
+
+.timer-mode {
+    display: flex;
+    gap: 20px;
+}
+
+.timer-mode label {
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    gap: 5px;
+}
+
+.timer-mode input[type="radio"] {
+    cursor: pointer;
+}
+
+/* Evitar flechas en los inputs numéricos */
+.time-field::-webkit-inner-spin-button,
+.time-field::-webkit-outer-spin-button {
+    -webkit-appearance: none;
+    margin: 0;
+}
+
+.time-field[type=number] {
+    -moz-appearance: textfield;
+}
+
+/* Estilos para el display del cronómetro */
+.stopwatch {
+    font-size: 3em;
+    font-family: monospace;
+    margin: 20px 0;
+}
+
+/* Estilos para los botones */
+.timer-buttons {
+    display: flex;
+    gap: 10px;
+}
+
+.timer-button {
+    padding: 10px 20px;
+    font-size: 1.2em;
+    border: none;
+    border-radius: 5px;
+    background-color: #333;
+    color: white;
+    cursor: pointer;
+    transition: background-color 0.3s;
+}
+
+.timer-button:hover {
+    background-color: #555;
+}
+
+.timer-button:active {
+    background-color: #222;
+}
+
+/* Estilos para las pestañas */
+.timer-controls {
+    display: flex;
+    justify-content: center;
+    gap: 10px;
+    margin-bottom: 20px;
+}
+
+.timer-tab {
+    padding: 10px 20px;
+    border: none;
+    border-radius: 5px;
+    background-color: #ddd;
+    cursor: pointer;
+    transition: background-color 0.3s;
+}
+
+.timer-tab.active {
+    background-color: #333;
+    color: white;
+}
+
+/* Estilos para las secciones */
+.timer-section {
+    display: none;
+    text-align: center;
+}
+
+.timer-section.active {
+    display: block;
+}
+
+/* Estilos para el botón de sonido */
+.sound-toggle {
+    padding: 10px;
+    border: none;
+    border-radius: 5px;
+    background-color: transparent;
+    cursor: pointer;
+    font-size: 1.2em;
+}
+
+.sound-toggle i {
+    color: #333;
+}
+
+.sound-toggle:hover i {
+    color: #555;
+}
+
+/* Estilos para el Tabata */
+.tabata-display {
+    text-align: center;
+    margin: 20px 0;
+}
+
+.tabata-time {
+    font-size: 3em;
+    font-family: monospace;
+    margin: 10px 0;
+}
+
+.tabata-round,
+.tabata-phase {
+    font-size: 1.5em;
+    margin: 5px 0;
+}
+
+.spotify-section {
+    margin: 20px 0;
+    text-align: center;
+}
+
+.playlist-selector {
+    width: 80%;
+    max-width: 300px;
+    padding: 10px;
+    margin-bottom: 15px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    background-color: #fff;
+    font-size: 14px;
+}
+
+#youtube-player {
+    margin: 0 auto;
+    max-width: 300px;
+    height: 80px;
+    background-color: #282828;
+    border-radius: 8px;
+    overflow: hidden;
+}
+
+#youtube-player iframe {
+    width: 100%;
+    height: 100%;
+    border: none;
+}
+
+
+
+
+
+
+
+
+
+

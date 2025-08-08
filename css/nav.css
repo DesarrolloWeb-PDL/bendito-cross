@@ -1,0 +1,105 @@
+/* Barra de Navegación */
+.navbar {
+    height: 60px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 0 20px;
+}
+
+.nav_logo {
+    font-family: var(--font-heading);
+    font-weight: 700;
+    font-size: 23px;
+    color: var(--color-blanco);
+    animation-name: left-to-right;
+    animation-duration: 2s;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+}
+
+.nav_logo span {
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-start;
+    align-items: center;
+}
+
+.nav_logo span p {
+    font-size: 15px;
+    margin-top: auto;
+}
+
+.nav_items {
+    display: flex;
+    align-items: center;
+}
+
+.nav_items a {
+    font-family: var(--font-heading);
+    font-weight: 600;
+    font-size: 16px;
+    margin: 15px;
+    color: var(--color-blanco);
+    text-decoration: none;
+    position: relative;
+}
+
+.nav_toggle {
+    display: none;
+}
+
+/* Estilos para pantallas pequeñas (hasta 768px) */
+@media (max-width: 768px) {
+    .nav_items {
+        position: absolute;
+        top: 60px;
+        left: 0;
+        background-color: #000000dc;
+        display: flex;
+        flex-direction: column;
+        width: 100%;
+        height: auto;
+        transform: translateX(-100%);
+        transition: 0.3s ease all;
+    }
+
+    .nav_items a {
+        text-align: center;
+        color: var(--color-blanco);
+        padding: 15px 0;
+    }
+
+    .nav_toggle {
+        display: flex !important;
+        flex-direction: column;
+        margin: 15px;
+        cursor: pointer;
+    }
+
+    .nav_toggle span {
+        width: 30px;
+        height: 4px;
+        background: var(--color-blanco);
+        margin-bottom: 5px;
+        border-radius: 2px;
+        transform-origin: 5px 0px;
+        transition: 0.2s linear;
+    }
+
+    .close span {
+        transform: rotate(45deg) translate(0px, 0px);
+    }
+
+    .close span:nth-child(2) {
+        display: none;
+    }
+
+    .close span:nth-child(3) {
+        transform: rotate(-45deg) translate(-5px, 1px);
+    }
+
+    .open {
+        transform: translateX(0) !important;
+    }
+} 

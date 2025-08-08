@@ -1,0 +1,56 @@
+.videos {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+  gap: 24px;
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 32px 16px;
+}
+
+.video-card {
+  background: rgba(40, 40, 40, 0.45); /* Translúcido oscuro */
+  border-radius: 18px;
+  box-shadow: 0 8px 32px 0 rgba(31, 38, 135, 0.18);
+  backdrop-filter: blur(6px); /* Efecto blur */
+  -webkit-backdrop-filter: blur(6px);
+  border: 1px solid rgba(255,255,255,0.18);
+  margin-bottom: 24px;
+  overflow: hidden;
+  transition: box-shadow 0.2s, transform 0.2s;
+}
+
+.video-card:hover {
+  box-shadow: 0 8px 32px 0 rgba(31, 38, 135, 0.28);
+  transform: translateY(-4px) scale(1.02);
+}
+
+.video-title {
+  font-family: 'Montserrat', Arial, sans-serif;
+  font-size: 1.15em;
+  font-weight: 700;
+  padding: 1.5rem 1.2rem;
+  background: rgba(40, 40, 40, 0.65); /* Más translúcido */
+  color: red;
+  border: none;
+  outline: none;
+  cursor: pointer;
+  border-bottom: 1px solid rgba(255,255,255,0.08);
+  transition: background 0.3s;
+  letter-spacing: 1px;
+}
+
+.video-title:hover {
+  background: rgba(40, 40, 40, 0.85);
+}
+
+.video-frame {
+  padding: 1.2rem;
+  background: rgba(30, 30, 30, 0.25);
+  border-radius: 0 0 18px 18px;
+  text-align: center;
+}
+
+.video-card.active .video-frame {
+  max-height: 400px; /* Ajusta según el alto del video */
+  padding: 16px;
+}
