@@ -103,3 +103,6 @@
         transform: translateX(0) !important;
     }
 } 
+.nav_items.open {
+    z-index: 2000;
+}
