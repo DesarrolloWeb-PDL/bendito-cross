@@ -1,0 +1,380 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+        <meta charset="UTF-8">
+        <meta http-equiv="X-UA-Compatible" content="IE=edge">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <title>Bendito Cross - Funcional Gym</title>
+        <link rel="stylesheet" type="text/css" href="css/style.css">
+        <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.10.4/font/bootstrap-icons.css">
+        <link rel="shortcut icon" href="favicon.ico" type="image/x-icon">
+</head>
+<body>
+
+    <header>
+        <nav class="navbar">
+            <div class="nav_logo">
+                <a href="index.html">
+                    <span>Bendito Cross</span>
+                    <span><p>Funcional Gym</p></span>
+                </a>
+            </div>
+            <div class="nav_items" id="_items">
+                <a href="index.html">INICIO</a>
+                <a href="rm.html">% RM</a>
+                <a href="fortime.html">FOR TIME</a>
+                <a href="ejercicios.html">AYUDAS TRAINING</a>
+                <a href="horarios.html">HORARIOS</a>
+            </div>
+            <div class="nav_toggle" id="_toggle">
+                <span></span>
+                <span></span>
+                <span></span>
+            </div>
+        </nav>
+    </header>
+
+    <div class="clock-container">
+        <div class="clock" id="clock"></div>
+    </div>
+
+
+<h1 class="diccionario-title">
+  <i class="bi bi-journal-bookmark"></i> Diccionario CrossFit
+</h1>
+<section class="diccionario-lista">
+  <article class="diccionario-item">
+    <h3>AFAP <span>- As Fast As Possible</span></h3>
+    <p>Lo más rápido que puedas.</p>
+  </article>
+  <article class="diccionario-item">
+    <h3>AMRAP <span>- As Many Repetitions (or Rounds) As Possible</span></h3>
+    <p>Todas las repeticiones (o rondas) posibles.</p>
+  </article>
+  <article class="diccionario-item">
+    <h3>AHAP <span>- As Heavy As Possible</span></h3>
+    <p>Tan pesado como puedas.</p>
+  </article>
+  <article class="diccionario-item">
+    <h3>BW <span>- Body weight</span></h3>
+    <p>Peso Corporal.</p>
+  </article>
+  <article class="diccionario-item">
+    <h3>Box</h3>
+    <p>Espacio, gimnasio o centro donde se entrena CrossFit.</p>
+  </article>
+  <article class="diccionario-item">
+    <h3>Cal</h3>
+    <p>Calorías.</p>
+  </article>
+  <article class="diccionario-item">
+    <h3>Chipper</h3>
+    <p>Entrenamiento con muchas repeticiones y muchos movimientos.</p>
+  </article>
+  <article class="diccionario-item">
+    <h3>CrossFit</h3>
+    <p>Entrenamiento funcional, constantemente variado, ejecutado a alta intensidad.</p>
+  </article>
+  <article class="diccionario-item">
+    <h3>CrossFitter</h3>
+    <p>Persona que hace CrossFit.</p>
+  </article>
+  <article class="diccionario-item">
+    <h3>EMOM <span>- Every Minute on the Minute</span></h3>
+    <p>Hacer un número determinado de repeticiones dentro de cada minuto.</p>
+  </article>
+  <article class="diccionario-item">
+    <h3>False Grip</h3>
+    <p>Agarre Falso. Es un tipo de agarre empleado en movimientos de gimnasia, especialmente en las anillas. Se realiza metiendo la mano en la anilla hasta que la muñeca la toque, rodeando con los dedos la anilla.</p>
+  </article>
+  <article class="diccionario-item">
+    <h3>For Quality</h3>
+    <p>Por Calidad: Cuando no importa el tiempo en el que realices el movimiento, sino la técnica y calidad del mismo.</p>
+  </article>
+  <article class="diccionario-item">
+    <h3>For Time</h3>
+    <p>Por tiempo.</p>
+  </article>
+  <article class="diccionario-item">
+    <h3>Hook Grip</h3>
+    <p>Agarre de Gancho. Es un tipo de agarre empleado en movimientos de halterofilia para mejorar la estabilidad y dar mayor seguridad. Se basa en utilizar el dedo pulgar como gancho, sujetando la barra, mientras el resto de los dedos rodean al pulgar.</p>
+  </article>
+  <article class="diccionario-item">
+    <h3>MetCon <span>- Metabolic Conditioning</span></h3>
+    <p>Acondicionamiento metabólico.</p>
+  </article>
+  <article class="diccionario-item">
+    <h3>PR <span>- Personal record</span></h3>
+    <p>Record Personal.</p>
+  </article>
+  <article class="diccionario-item">
+    <h3>Rep</h3>
+    <p>Repetición.</p>
+  </article>
+  <article class="diccionario-item">
+    <h3>Rest Day</h3>
+    <p>Día de descanso.</p>
+  </article>
+  <article class="diccionario-item">
+    <h3>RM <span>- Repetition maximum</span></h3>
+    <p>Máxima carga que un individuo puede mover.</p>
+  </article>
+  <article class="diccionario-item">
+    <h3>ROM <span>- Range of Motion</span></h3>
+    <p>Rango de movimiento.</p>
+  </article>
+  <article class="diccionario-item">
+    <h3>Rx’d <span>- As prescribed</span></h3>
+    <p>Entrenamiento o ejercicio realizado correctamente sin ninguna modificación.</p>
+  </article>
+  <article class="diccionario-item">
+    <h3>Scaled</h3>
+    <p>Ejercicio escalado o modificado.</p>
+  </article>
+  <article class="diccionario-item">
+    <h3>Set</h3>
+    <p>Cantidad de veces que se realiza un determinado número de repeticiones. Por ejemplo 4 sets de 5 reps.</p>
+  </article>
+  <article class="diccionario-item">
+    <h3>Strength</h3>
+    <p>Fuerza.</p>
+  </article>
+  <article class="diccionario-item">
+    <h3>TABATA</h3>
+    <p>tipo de entrenamiento que consiste en 8 intervalos de 20 segundos de trabajo intenso y 10 segundos de descanso. Su nombre viene del creador de este método el doctor Izumi Tabata.</p>
+  </article>
+  <article class="diccionario-item">
+    <h3>Time Cap</h3>
+    <p>Tiempo límite que tiene un WOD para completarse.</p>
+  </article>
+  <article class="diccionario-item">
+    <h3>UB <span>- Unbroken</span></h3>
+    <p>Es cuando se realiza un ejercicio de principio a fin sin descanso.</p>
+  </article>
+  <article class="diccionario-item">
+    <h3>Warm up</h3>
+    <p>Calentamiento.</p>
+  </article>
+  <article class="diccionario-item">
+    <h3>WOD <span>- Workout of the day</span></h3>
+    <p>Entrenamiento del día.</p>
+  </article>
+</section>
+
+<h1 class="diccionario-title">
+  <i class="bi bi-journal-bookmark"></i> Movimientos de CrossFit y sus Abreviaturas
+</h1>
+<section class="diccionario-lista">
+  <article class="diccionario-item">
+    <h3>Arch Rock</h3>
+    <p>Balanceo en posición de superman.</p>
+  </article>
+  <article class="diccionario-item">
+    <h3>BS <span>- Back Squat</span></h3>
+    <p>Sentadilla trasera con peso detrás de la nuca.</p>
+  </article>
+  <article class="diccionario-item">
+    <h3>BP <span>- Bench Press</span></h3>
+    <p>Press de banca.</p>
+  </article>
+  <article class="diccionario-item">
+    <h3>Box Jump</h3>
+    <p>Salto al cajón.</p>
+  </article>
+  <article class="diccionario-item">
+    <h3>BRP</h3>
+    <p>Burpee.</p>
+  </article>
+  <article class="diccionario-item">
+    <h3>CLN</h3>
+    <p>Clean: Cargada. Consiste en llevar una carga desde el suelo hasta los hombros. Versiones adicionales incluyen: Hang Clean (HC)(Clean desde rodillas), Power Clean (PC), y Squat Clean (SC).</p>
+  </article>
+  <article class="diccionario-item">
+    <h3>C&J</h3>
+    <p>Clean and Jerk: Cargada y envión. La unión de realizar un clean y seguidamente un Jerk.</p>
+  </article>
+  <article class="diccionario-item">
+    <h3>CTB / C2B</h3>
+    <p>Pecho a la barra. Dominadas en las que debes tocar el rack con el pecho.</p>
+  </article>
+  <article class="diccionario-item">
+    <h3>DL <span>- Deadlift</span></h3>
+    <p>Peso muerto. Levanta un peso del suelo hasta la extensión completa de cadera.</p>
+  </article>
+  <article class="diccionario-item">
+    <h3>DU’s <span>- Double Unders</span></h3>
+    <p>Dos vueltas de la comba en un salto.</p>
+  </article>
+  <article class="diccionario-item">
+    <h3>FS <span>-Front Squat</span></h3>
+    <p>Sentadilla Frontal con el peso por delante.</p>
+  </article>
+  <article class="diccionario-item">
+    <h3>Hang</h3>
+    <p>Colgado. En movimientos halterofilia, se utiliza cuando el movimiento (clean o snatch) comienza desde la rodilla o por encima de ella.</p>
+  </article>
+  <article class="diccionario-item">
+    <h3>Hollow</h3>
+    <p>Ejercicio funcional que consiste en estar tumbados boca arriba, con piernas y brazos extendidos (brazos hacia atrás y a los lados de la cabeza) y levantados del suelo contrayendo zona abdominal.</p>
+  </article>
+  <article class="diccionario-item">
+    <h3>Hollow Rock</h3>
+    <p>Balanceo en posición de hollow.</p>
+  </article>
+  <article class="diccionario-item">
+    <h3>HSPU <span>- Hand Stand Push-Up</span></h3>
+    <p>Pino flexión ó Parada de manos con flexión.</p>
+  </article>
+  <article class="diccionario-item">
+    <h3>K2E <span>- Knees to Elbows</span></h3>
+    <p>Consiste en estar colgados en la barra y llevar las rodillas a los codos.</p>
+  </article>
+  <article class="diccionario-item">
+    <h3>MU <span>- Muscle Up</span></h3>
+    <p>Movimientos combinados que encadenan un balanceo con un fondo de Tríceps (puede ser en anillas o en barra).</p>
+  </article>
+  <article class="diccionario-item">
+    <h3>OHS <span>- Over Head Squat</span></h3>
+    <p>Sentadilla con peso por encima de la cabeza.</p>
+  </article>
+  <article class="diccionario-item">
+    <h3>Pistol</h3>
+    <p>Sentadilla a una pierna.</p>
+  </article>
+  <article class="diccionario-item">
+    <h3>PP <span>- Push Press</span></h3>
+    <p>Press de hombros con empuje. Consiste en llevar la barra desde tus hombros hasta arriba de tu cabeza con un impulso con las piernas para empujarla hacia arriba. El movimiento termina con fuerza estricta de hombros.</p>
+  </article>
+  <article class="diccionario-item">
+    <h3>PJ <span>- Push Jerk</span></h3>
+    <p>Press con Envión. Consiste en llevar la barra desde tus hombros hasta arriba de tu cabeza con un impulso con las piernas para empujarla hacia arriba y además, una ligera flexión de piernas al final del movimiento para recibir la barra desde más abajo para ayudarnos un poco más a levantarla.</p>
+  </article>
+  <article class="diccionario-item">
+    <h3>PU <span>- Pull Up or Push Up</span></h3>
+    <p>Dominadas o flexiones.</p>
+  </article>
+  <article class="diccionario-item">
+    <h3>Ring dips</h3>
+    <p>fondos de tríceps en anillas</p>
+  </article>
+  <article class="diccionario-item">
+    <h3>Rope climb</h3>
+    <p>escalar la cuerda con o sin ayuda de las piernas (Es el momento en el que todos nos sentimos bomberos).</p>
+  </article>
+  <article class="diccionario-item">
+    <h3>SDL <span>- Sumo Deadlift</span></h3>
+    <p>Peso Muerto en con las piernas en posición de sumo</p>
+  </article>
+  <article class="diccionario-item">
+    <h3>SDHP <span>- Sumo Deadlift High Pull</span></h3>
+    <p>Consiste en realizar un peso muerto en posición de sumo, y luego de que la barra llegue a la cadera, realizar un empuje y tirar con los brazos la barra hasta la altura de la barbilla.</p>
+  </article>
+  <article class="diccionario-item">
+    <h3>SP <span>- Shoulder Press</span></h3>
+    <p>Press de hombros estrictos. Consiste en llevar la barra desde tus hombros hasta arriba de tu cabeza únicamente con la fuerza estricta de tus hombros.</p>
+  </article>
+  <article class="diccionario-item">
+    <h3>SN <span>- Snatch</span></h3>
+    <p>Arrancada: Consiste en levantar la barra del suelo hasta arriba de la cabeza en un solo tiempo. Versiones adicionales incluyen, Hang Snatch (HS), Power Snatch (PS), y Squat Snatch (SS).</p>
+  </article>
+  <article class="diccionario-item">
+    <h3>Split Jerk</h3>
+    <p>Envión. La técnica es similar al Push Jerk, con la diferencia que al momento de flexionar las piernas para terminar el movimiento, las piernas se mueven una hacia delante, y otra hacia atrás.</p>
+  </article>
+  <article class="diccionario-item">
+    <h3>SQ <span>- Squat</span></h3>
+    <p>Sentadilla.</p>
+  </article>
+  <article class="diccionario-item">
+    <h3>S-ups</h3>
+    <p>Sit ups.</p>
+  </article>
+  <article class="diccionario-item">
+    <h3>SU’s <span>- Single Unders</span></h3>
+    <p>Una vuelta de la comba en un salto.</p>
+  </article>
+  <article class="diccionario-item">
+    <h3>Superman</h3>
+    <p>Ejercicio funcional que consiste en estar tumbados boca abajo, con piernas y brazos extendidos y elevados lo más que se pueda para que no toquen suelo ni cuádriceps ni brazos.</p>
+  </article>
+  <article class="diccionario-item">
+    <h3>T2B <span>- Toes to Bar</span></h3>
+    <p>Consiste en estar colgados en la barra y toca la barra con los pies.</p>
+  </article>
+  <article class="diccionario-item">
+    <h3>V-ups</h3>
+    <p>Abdominales en V.</p>
+  </article>
+  <article class="diccionario-item">
+    <h3>WBS <span>- Wall Ball Shot</span></h3>
+    <p>Lanzamiento de bola a la pared.</p>
+  </article>
+</section>
+
+<h1 class="diccionario-title">
+  <i class="bi bi-journal-bookmark"></i> Materiales/ equipación para CrossFit
+</h1>
+<section class="diccionario-lista">
+  <article class="diccionario-item">
+    <h3>Abmat</h3>
+    <p>Almohadilla para apoyar lumbar a la hora de hacer abdominales.</p>
+  </article>
+  <article class="diccionario-item">
+    <h3>AssBike</h3>
+    <p>Assault bike.</p>
+  </article>
+  <article class="diccionario-item">
+    <h3>Barbell</h3>
+    <p>Barra olímpica.</p>
+  </article>
+  <article class="diccionario-item">
+    <h3>Bikerg</h3>
+    <p>Bicicleta estática</p>
+  </article>
+  <article class="diccionario-item">
+    <h3>DB <span>- Dumbbell</span></h3>
+    <p>Mancuerna.</p>
+  </article>
+  <article class="diccionario-item">
+    <h3>KB <span>- Kettlebell</span></h3>
+    <p>Pesa rusa.</p>
+  </article>
+  <article class="diccionario-item">
+    <h3>Ring</h3>
+    <p>Anillas utilizadas para realizar movimientos gimnásticos.</p>
+  </article>
+  <article class="diccionario-item">
+    <h3>Rack</h3>
+    <p>Estructura metálica para hacer los diferentes ejercicios de gimnasia: dominadas, T2B, etc.</p>
+  </article>
+  <article class="diccionario-item">
+    <h3>Row</h3>
+    <p>Remo</p>
+  </article>
+  <article class="diccionario-item">
+    <h3>Skierg</h3>
+    <p>Esquiadora</p>
+  </article>
+</section>
+
+<footer class="footer-distributed">
+        <div class="footer-container">
+            <div class="footer-info">
+                <h3>Bendito Cross</h3>
+                <p class="footer-description">Gimnasio funcional dedicado a mejorar tu salud y bienestar</p>
+            </div>
+            <div class="footer-contact">
+                <p><i class="bi bi-geo-alt"></i> Amado Bonpland 434, Paso de los Libres</p>
+                <p><i class="bi bi-telephone"></i> +54 9 3772 636766</p>
+            </div>
+            <div class="footer-social">
+                <a href="https://www.instagram.com/benditocross/"><i class="bi bi-instagram"></i></a>
+                <a href="https://www.facebook.com/benditocross"><i class="bi bi-facebook"></i></a>
+                <a href="https://wa.me/+5493772636766"><i class="bi bi-whatsapp"></i></a>
+            </div>
+        </div>
+    </footer>
+
+   <script src="script.js"></script>
+</body>
+</html>
