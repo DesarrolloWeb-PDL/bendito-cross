@@ -16,7 +16,9 @@
     padding: 0;
     position: relative;
     z-index: 1;
+    line-height: 1;
 }
+
 
     /* Reloj en tiempo real*/
 .clock-container {
