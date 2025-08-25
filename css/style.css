@@ -7,10 +7,15 @@
 
 /* Logo Bendito tamaño fijo */
 .logo-bdt {
-    width: 150px;
-    height: 150px;
+    width: 17rem;
+    height: 17rem;
     object-fit: contain;
+    margin: 0 8px 0 0;
+    vertical-align: middle;
+    display: inline-block;
     padding: 0;
+    position: relative;
+    z-index: 1;
 }
 
     /* Reloj en tiempo real*/
