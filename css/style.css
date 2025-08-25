@@ -1,11 +1,19 @@
+
 @import "body.css";
 @import "nav.css";
 @import "modulos.css";
 @import "videos.css";
 @import "styles_js.css";
 
+/* Logo Bendito tamaño fijo */
+.logo-bdt {
+    width: 150px;
+    height: 150px;
+    object-fit: contain;
+    padding: 0;
+}
 
-/* Reloj en tiempo real*/
+    /* Reloj en tiempo real*/
 .clock-container {
     display: flex;
     justify-content: center;
@@ -51,6 +59,7 @@
     margin: 0;
     font-size: 0.9rem;
     color: #ccc;
+    padding: auto;
 }
 
 .footer-contact {
