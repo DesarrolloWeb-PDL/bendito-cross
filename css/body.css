@@ -64,20 +64,16 @@ h2 {
     letter-spacing: 1px;
 }
 
-.nav_logo span {
-    display: flex;
-    flex-direction: column;
-    justify-content: flex-start;
-    align-items: center;
+/* El logo principal animado en el nav */
+.logo-nav-animado {
+    width: 17rem;
+    height: 17rem;
+    object-fit: contain;
+    animation-name: left-to-right;
+    animation-duration: 2s;
+    display: block;
+    margin: 0 auto;
 }
-
-.nav_logo :hover{
-    scale: 1.2;
-    color: var(--color-rojo);
-}
-
-.nav_logo span p {
-    font-size: 20px;
     margin-top: auto;
 }
 

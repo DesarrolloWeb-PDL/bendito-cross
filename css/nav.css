@@ -1,3 +1,27 @@
+/* Fondo translúcido para el logo detrás del nav_logo */
+.nav_logo-bg-container {
+    position: relative;
+    display: flex;
+    align-items: center;
+    justify-content: flex-start;
+}
+
+.logo-bg-translucido {
+    position: absolute;
+    left: 50%;
+    top: 50%;
+    transform: translate(-50%, -50%);
+    width: 120px;
+    height: 120px;
+    opacity: 0.18;
+    z-index: 0;
+    pointer-events: none;
+}
+
+.nav_logo {
+    position: relative;
+    z-index: 1;
+}
 /* Barra de Navegación */
 .navbar {
     height: 60px;
