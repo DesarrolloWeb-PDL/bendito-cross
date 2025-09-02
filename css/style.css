@@ -1,4 +1,3 @@
-
 @import "body.css";
 @import "nav.css";
 @import "modulos.css";
@@ -607,6 +606,28 @@
     width: 100%;
     height: 100%;
     border: none;
+}
+
+/* Buscador con estilo homogéneo y tamaño igual al de las tarjetas */
+.diccionario-buscador, .ejercicios-buscador {
+    width: 340px;
+    max-width: 90vw;
+    margin: 0 auto 2rem auto;
+    display: block;
+    padding: 0.7rem 1.2rem;
+    border-radius: 1.2rem;
+    border: 1px solid #e0e0e0;
+    font-size: 1.1rem;
+    box-shadow: 0 2px 12px rgba(0,0,0,0.07);
+    background: #fff;
+    color: #222;
+    transition: border-color 0.2s, box-shadow 0.2s;
+}
+
+.diccionario-buscador:focus, .ejercicios-buscador:focus {
+    border-color: #bdbdbd;
+    box-shadow: 0 4px 16px rgba(0,0,0,0.10);
+    outline: none;
 }
 
 

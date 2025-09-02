@@ -370,3 +370,32 @@ function updateClock() {
 }
 setInterval(updateClock, 1000);
 updateClock();
+
+// Filtro para diccionario
+const buscador = document.querySelector('.diccionario-buscador');
+const tarjetas = document.querySelectorAll('.diccionario-item');
+
+if (buscador && tarjetas.length) {
+    buscador.addEventListener('input', function() {
+        const valor = buscador.value.toLowerCase();
+        tarjetas.forEach(card => {
+            card.style.display = card.textContent.toLowerCase().includes(valor) ? '' : 'none';
+        });
+    });
+}
+
+// Filtro para ejercicios
+document.addEventListener('DOMContentLoaded', function() {
+    const buscadorEjercicios = document.getElementById('buscador-ejercicios');
+    const contenedorEjercicios = document.getElementById('videos_ejercicios');
+
+    if (buscadorEjercicios && contenedorEjercicios) {
+        buscadorEjercicios.addEventListener('input', function() {
+            const valor = buscadorEjercicios.value.toLowerCase();
+            const tarjetas = contenedorEjercicios.querySelectorAll('.video-card');
+            tarjetas.forEach(card => {
+                card.style.display = card.textContent.toLowerCase().includes(valor) ? '' : 'none';
+            });
+        });
+    }
+});

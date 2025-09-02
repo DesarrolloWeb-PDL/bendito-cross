@@ -39,7 +39,7 @@ h2 {
     font-family: var(--font-heading);
     font-weight: 700;
     text-align: center;
-    color: red;
+    color: rgb(255, 255, 255);
     margin-bottom: 20px;
     text-transform: uppercase;
     letter-spacing: 1px;
