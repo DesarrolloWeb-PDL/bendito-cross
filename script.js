@@ -400,7 +400,7 @@ document.addEventListener('DOMContentLoaded', function() {
     }
 });
 
-// Carrusel funcional
+// Carrusel funcional con cambio cada 2 segundos
 document.addEventListener('DOMContentLoaded', function() {
     const slides = document.querySelectorAll('.carrusel-slide');
     const prevBtn = document.getElementById('carrusel-prev');
@@ -423,11 +423,13 @@ document.addEventListener('DOMContentLoaded', function() {
         showSlide(current);
     }
 
-    nextBtn.addEventListener('click', nextSlide);
-    prevBtn.addEventListener('click', prevSlide);
+    if (nextBtn && prevBtn) {
+        nextBtn.addEventListener('click', nextSlide);
+        prevBtn.addEventListener('click', prevSlide);
+    }
 
-    // Auto avance cada 5 segundos
-    setInterval(nextSlide, 5000);
+    // Auto avance cada 2 segundos
+    setInterval(nextSlide, 2500);
 
     showSlide(current);
 });

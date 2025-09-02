@@ -474,6 +474,7 @@
 }
 
 .time-field[type=number] {
+    appearance: textfield;
     -moz-appearance: textfield;
 }
 
