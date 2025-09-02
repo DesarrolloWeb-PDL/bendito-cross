@@ -630,6 +630,77 @@
     outline: none;
 }
 
+/* Carrusel de banners mejorado para imágenes ajustadas y sin pérdida de calidad */
+.carrusel-banner {
+    position: relative;
+    width: 100%;
+    max-width: 700px;
+    margin: 2rem auto;
+    overflow: hidden;
+    border-radius: 16px;
+    box-shadow: 0 4px 16px rgba(0,0,0,0.10);
+    background: #222;
+}
+
+.carrusel-slide {
+    display: none;
+    width: 100%;
+    height: 320px;
+    align-items: center;
+    justify-content: center;
+}
+
+.carrusel-slide.active {
+    display: flex;
+}
+
+.carrusel-slide img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    object-position: center;
+    border-radius: 16px;
+    image-rendering: auto;
+    background: #222;
+}
+
+.carrusel-btn {
+    position: absolute;
+    top: 50%;
+    transform: translateY(-50%);
+    background: rgba(0,0,0,0.4);
+    color: #fff;
+    border: none;
+    font-size: 2rem;
+    padding: 0.5rem 1rem;
+    cursor: pointer;
+    border-radius: 50%;
+    z-index: 2;
+    transition: background 0.2s;
+}
+
+.carrusel-btn:hover {
+    background: rgba(0,0,0,0.7);
+}
+
+.carrusel-btn.prev {
+    left: 16px;
+}
+
+.carrusel-btn.next {
+    right: 16px;
+}
+
+@media (max-width: 600px) {
+    .carrusel-banner {
+        max-width: 98vw;
+    }
+    .carrusel-slide,
+    .carrusel-slide img {
+        height: 180px;
+    }
+}
+
 
 
 

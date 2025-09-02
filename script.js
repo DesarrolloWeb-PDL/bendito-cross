@@ -399,3 +399,35 @@ document.addEventListener('DOMContentLoaded', function() {
         });
     }
 });
+
+// Carrusel funcional
+document.addEventListener('DOMContentLoaded', function() {
+    const slides = document.querySelectorAll('.carrusel-slide');
+    const prevBtn = document.getElementById('carrusel-prev');
+    const nextBtn = document.getElementById('carrusel-next');
+    let current = 0;
+
+    function showSlide(idx) {
+        slides.forEach((slide, i) => {
+            slide.classList.toggle('active', i === idx);
+        });
+    }
+
+    function nextSlide() {
+        current = (current + 1) % slides.length;
+        showSlide(current);
+    }
+
+    function prevSlide() {
+        current = (current - 1 + slides.length) % slides.length;
+        showSlide(current);
+    }
+
+    nextBtn.addEventListener('click', nextSlide);
+    prevBtn.addEventListener('click', prevSlide);
+
+    // Auto avance cada 5 segundos
+    setInterval(nextSlide, 5000);
+
+    showSlide(current);
+});
