@@ -474,7 +474,6 @@
 }
 
 .time-field[type=number] {
-    appearance: textfield;
     -moz-appearance: textfield;
 }
 
@@ -655,11 +654,18 @@
     display: flex;
 }
 
+.carrusel-slide a {
+    display: block;
+    width: 100%;
+    height: 100%;
+}
+
 .carrusel-slide img {
     width: 100%;
     height: 100%;
     object-fit: cover;
     object-position: center;
+    display: block;
     border-radius: 16px;
     image-rendering: auto;
     background: #222;
