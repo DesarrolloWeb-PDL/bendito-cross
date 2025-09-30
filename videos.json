@@ -1,4 +1,3 @@
-
 const videos = [
   { nombre: "Air Squat - Sentadilla", url: "https://www.youtube.com/embed/WooxeUY6M68?si=Oo59h38nds1OOAdA" },
   { nombre: "Front Squat - Sentadilla Frontal", url: "https://www.youtube.com/embed/LMuyiedwees?si=D-n0NzVzfjnF7cFH" },
@@ -7,59 +6,100 @@ const videos = [
   { nombre: "Push Press - Press de Hombro con Empuje", url: "https://www.youtube.com/embed/Wqq4JBOJeKQ?si=Bp_mqoXcIkvFh7A8" },
   { nombre: "Push Jerk - Press de Hombro con Empuje y Recepción Corta", url: "https://www.youtube.com/embed/v_0E1udYSnQ?si=ccYXj6b3sWlWOxs2" },
   { nombre: "Split Jerk - Press de Hombro con Empuje y Recepción/Desplazamiento", url: "https://www.youtube.com/embed/WhqUzVtVQI4?si=i4-jfhTzszA24OsQ" },
-  { nombre: " Deadlift - Peso Muerto", url: "https://www.youtube.com/embed/Vj4NP-oqAZ8?si=CdECQKgP796_IKLw" },
+  { nombre: "Deadlift - Peso Muerto", url: "https://www.youtube.com/embed/Vj4NP-oqAZ8?si=CdECQKgP796_IKLw" },
   { nombre: "Sumo Deadlift - Peso Muerto con tirón alto", url: "https://www.youtube.com/embed/GZIfh5DPaJM?si=z57EipBLflQlCJsO" },
   { nombre: "Medicine-Ball Clean - Cargada con Balón Medicinal", url: "https://www.youtube.com/embed/qNoku5mwz-M?si=fIBbFm4FlGVmPOY5" },
-  { nombre: "Clean - Cargada al Hombro con Recepción Profunda", url: "https://www.youtube.com/embed/RuvEX5DeytA?si=o3lAg6cEuPX4Sas_"  },
+  { nombre: "Clean - Cargada al Hombro con Recepción Profunda", url: "https://www.youtube.com/embed/RuvEX5DeytA?si=o3lAg6cEuPX4Sas_" },
   { nombre: "Burpee - Sentadilla / Plancha / Flexión / Salto Vertical", url: "https://www.youtube.com/embed/7mj1pP0Xds8?si=-2FPDK2mCvxR88id" },
-  { nombre: "Power Snatch con Mancuernas", url: src="https://www.youtube.com/embed/z7DU830K2SM?si=VVjs-roabfHwdqNI" },
+  { nombre: "Power Snatch con Mancuernas", url: "https://www.youtube.com/embed/z7DU830K2SM?si=VVjs-roabfHwdqNI" },
   { nombre: "Overhead Squat con una sola Mancuerna", url: "https://www.youtube.com/embed/zUxiH1Ekov4?si=mtR2CXUWY8TsKZQh" },
   { nombre: "Push-up - Flexiones de Brazo", url: "https://www.youtube.com/embed/0pkjOk0EiAk?si=43sbvmUGg-SSTmdp" },
   { nombre: "Hollow Rock - Balanceo Hueco", url: "https://www.youtube.com/embed/p7j02V1fIzU?si=AGi6-EBftWR_Kh_u" },
   { nombre: "AbMat Sit-up - Abdominal Tradional con Cojín curvo", url: "https://www.youtube.com/embed/_HDZODOx7Zw?si=F0nm-O5NErpyGXgC" },
   { nombre: "V-up - Abdominal en V", url: "https://www.youtube.com/embed/Mk4zCq9b6hU?si=_Dr6iX1SI0aZV6DN" },
-  { nombre: "Crunch - Abdomial con zona lumbar pegada al suelo", url: "https://www.youtube.com/embed/9VopAXZSZDA?si=AZBN0V1jNDT3IGa3"   },
+  { nombre: "Crunch - Abdomial con zona lumbar pegada al suelo", url: "https://www.youtube.com/embed/9VopAXZSZDA?si=AZBN0V1jNDT3IGa3" },
   { nombre: "Tuck Ups - Adominal Bolita", url: "https://www.youtube.com/embed/0iR-GwaBxU0?si=ji1yNLItDHC7gHqm" },
   { nombre: "Superman", url: "https://www.youtube.com/embed/6IojLNZWVP8?si=cfBCC0N3iaEIOdDP" },
   { nombre: "Superman Rock", url: "https://www.youtube.com/embed/2YMC-WmsMA4?si=4XKQGiLhdjCXrp8o" },
-  { nombre: "Good Morningh - Buenos Días", url: "https://www.youtube.com/embed/YA-h3n9L4YU?si=BwKpFl92jpltfLpm" },
- 
-  ];
+  { nombre: "Good Morning - Buenos Días", url: "https://www.youtube.com/embed/YA-h3n9L4YU?si=BwKpFl92jpltfLpm" }
+];
 
-document.addEventListener('DOMContentLoaded', function() {
-  const contenedor = document.getElementById('videos_ejercicios');
-  videos.forEach((video, i) => {
+// ============================================
+// VIDEO MANAGER
+// ============================================
+class VideoManager {
+  constructor(containerId) {
+    this.container = document.getElementById(containerId);
+    this.videos = videos;
+  }
+
+  init() {
+    if (!this.container) return;
+
+    // Crear todas las tarjetas de video
+    this.videos.forEach((video, index) => {
+      const card = this.createVideoCard(video, index);
+      this.container.appendChild(card);
+    });
+
+    // Event delegation para manejar clicks
+    this.container.addEventListener('click', (e) => {
+      this.handleCardClick(e);
+    });
+  }
+
+  createVideoCard(video, index) {
     const card = document.createElement('div');
     card.className = 'video-card';
     card.innerHTML = `
-      <div class="video-title" data-index="${i}">${video.nombre}</div>
+      <div class="video-title" data-index="${index}">${video.nombre}</div>
       <div class="video-frame"></div>
     `;
-    contenedor.appendChild(card);
-  });
-
-  contenedor.addEventListener('click', function(e) {
-    if (e.target.classList.contains('video-title')) {
-      const card = e.target.parentElement;
-      const frame = card.querySelector('.video-frame');
-      card.classList.toggle('active');
-      // Solo crea el iframe si no existe
-      if (card.classList.contains('active') && frame.childElementCount === 0) {
-        const idx = e.target.getAttribute('data-index');
-        frame.innerHTML = `<iframe width="329" height="184.91" src="${videos[idx].url}" frameborder="0" allowfullscreen></iframe>`;
-      }
-      // Si se cierra, puedes limpiar el contenido para liberar memoria (opcional)
-      if (!card.classList.contains('active')) {
-        frame.innerHTML = '';
-      }
-    }
-  });
-});
-
-
-contenedor.addEventListener('click', function(e) {
-  if (e.target.classList.contains('video-title')) {
-    const card = e.target.parentElement;
-    card.classList.toggle('active');
+    return card;
   }
+
+  handleCardClick(e) {
+    if (!e.target.classList.contains('video-title')) return;
+
+    const card = e.target.parentElement;
+    const frame = card.querySelector('.video-frame');
+    const index = e.target.getAttribute('data-index');
+    
+    // Toggle active state
+    card.classList.toggle('active');
+    
+    // Cargar iframe solo cuando se abre la card
+    if (card.classList.contains('active') && frame.childElementCount === 0) {
+      this.loadVideoIframe(frame, index);
+    }
+    
+    // Limpiar iframe cuando se cierra (opcional, para liberar memoria)
+    if (!card.classList.contains('active')) {
+      frame.innerHTML = '';
+    }
+  }
+
+  loadVideoIframe(frame, index) {
+    const video = this.videos[index];
+    if (!video) return;
+
+    frame.innerHTML = `
+      <iframe 
+        width="329" 
+        height="184.91" 
+        src="${video.url}" 
+        frameborder="0" 
+        allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+        allowfullscreen>
+      </iframe>
+    `;
+  }
+}
+
+// ============================================
+// INITIALIZE VIDEO MANAGER
+// ============================================
+document.addEventListener('DOMContentLoaded', () => {
+  const videoManager = new VideoManager('videos_ejercicios');
+  videoManager.init();
 });
