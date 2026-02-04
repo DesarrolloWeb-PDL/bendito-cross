@@ -131,16 +131,7 @@
     </footer>
 
    <script src="script.js"></script>
-   <script>
-       // Registrar Service Worker
-       if ('serviceWorker' in navigator) {
-           navigator.serviceWorker.register('sw.js').then(registration => {
-               console.log('Service Worker registrado correctamente:', registration);
-           }).catch(error => {
-               console.warn('Error al registrar Service Worker:', error);
-           });
-       }
-   </script>
+   <script src="sw-register.js"></script>
 
 </body>
 </html>
