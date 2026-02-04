@@ -10,13 +10,13 @@
   "theme_color": "#FF0000",
   "icons": [
     {
-      "src": "img/logo-bendito.png",
+      "src": "img/benditocross.png",
       "sizes": "192x192",
       "type": "image/png",
       "purpose": "any maskable"
     },
     {
-      "src": "img/logo-bendito.png",
+      "src": "img/benditocross.png",
       "sizes": "512x512",
       "type": "image/png",
       "purpose": "any maskable"

@@ -17,6 +17,7 @@ const urlsToCache = [
   '/sw-register.js',
   '/manifest.json',
   '/img/logo-bendito.png',
+  '/img/benditocross.png',
   '/img/favicon.ico'
 ];
 

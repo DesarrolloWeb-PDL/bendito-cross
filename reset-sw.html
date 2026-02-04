@@ -1,0 +1,176 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Limpiar Service Worker - Bendito Cross</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background: #000;
+            color: #fff;
+            padding: 20px;
+            text-align: center;
+        }
+        .container {
+            max-width: 600px;
+            margin: 50px auto;
+            background: #222;
+            padding: 30px;
+            border-radius: 10px;
+        }
+        button {
+            background: #ff0000;
+            color: white;
+            border: none;
+            padding: 15px 30px;
+            font-size: 16px;
+            border-radius: 5px;
+            cursor: pointer;
+            margin: 10px;
+        }
+        button:hover {
+            background: #cc0000;
+        }
+        #status {
+            margin-top: 20px;
+            padding: 15px;
+            border-radius: 5px;
+        }
+        .success {
+            background: #28a745;
+        }
+        .error {
+            background: #dc3545;
+        }
+        .info {
+            background: #17a2b8;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>🔧 Limpieza de Service Worker</h1>
+        <p>Si tienes problemas instalando la app, usa estos botones:</p>
+        
+        <button onclick="unregisterServiceWorker()">1. Limpiar Service Worker</button>
+        <button onclick="clearAllCaches()">2. Limpiar Caché</button>
+        <button onclick="fullReset()">3. Limpieza Completa</button>
+        
+        <div id="status"></div>
+        
+        <hr style="margin: 30px 0; border-color: #444;">
+        
+        <p>Después de limpiar:</p>
+        <button onclick="window.location.href='index.html'" style="background: #28a745;">
+            ✅ Ir a la Página Principal
+        </button>
+    </div>
+
+    <script>
+        const status = document.getElementById('status');
+        
+        function showStatus(message, type = 'info') {
+            status.innerHTML = message;
+            status.className = type;
+        }
+        
+        async function unregisterServiceWorker() {
+            try {
+                const registrations = await navigator.serviceWorker.getRegistrations();
+                
+                if (registrations.length === 0) {
+                    showStatus('✅ No hay service workers registrados', 'success');
+                    return;
+                }
+                
+                for (let registration of registrations) {
+                    await registration.unregister();
+                }
+                
+                showStatus(`✅ ${registrations.length} service worker(s) eliminado(s). Recarga la página.`, 'success');
+            } catch (error) {
+                showStatus(`❌ Error: ${error.message}`, 'error');
+            }
+        }
+        
+        async function clearAllCaches() {
+            try {
+                const cacheNames = await caches.keys();
+                
+                if (cacheNames.length === 0) {
+                    showStatus('✅ No hay cachés para limpiar', 'success');
+                    return;
+                }
+                
+                await Promise.all(
+                    cacheNames.map(cacheName => caches.delete(cacheName))
+                );
+                
+                showStatus(`✅ ${cacheNames.length} caché(s) eliminado(s)`, 'success');
+            } catch (error) {
+                showStatus(`❌ Error: ${error.message}`, 'error');
+            }
+        }
+        
+        async function fullReset() {
+            showStatus('🔄 Realizando limpieza completa...', 'info');
+            
+            try {
+                // 1. Desregistrar service workers
+                const registrations = await navigator.serviceWorker.getRegistrations();
+                for (let registration of registrations) {
+                    await registration.unregister();
+                }
+                
+                // 2. Limpiar cachés
+                const cacheNames = await caches.keys();
+                await Promise.all(
+                    cacheNames.map(cacheName => caches.delete(cacheName))
+                );
+                
+                // 3. Limpiar localStorage
+                localStorage.clear();
+                
+                // 4. Limpiar sessionStorage
+                sessionStorage.clear();
+                
+                showStatus(
+                    `✅ Limpieza completa realizada:<br>
+                    - ${registrations.length} service worker(s) eliminado(s)<br>
+                    - ${cacheNames.length} caché(s) eliminado(s)<br>
+                    - Storage limpiado<br><br>
+                    Ahora puedes cerrar y volver a abrir el navegador, luego instala la app.`,
+                    'success'
+                );
+                
+                setTimeout(() => {
+                    if (confirm('¿Recargar la página ahora?')) {
+                        window.location.reload();
+                    }
+                }, 3000);
+                
+            } catch (error) {
+                showStatus(`❌ Error: ${error.message}`, 'error');
+            }
+        }
+        
+        // Mostrar estado inicial
+        window.addEventListener('load', async () => {
+            try {
+                const registrations = await navigator.serviceWorker.getRegistrations();
+                const cacheNames = await caches.keys();
+                
+                showStatus(
+                    `ℹ️ Estado actual:<br>
+                    - Service Workers: ${registrations.length}<br>
+                    - Cachés: ${cacheNames.length}`,
+                    'info'
+                );
+            } catch (error) {
+                showStatus('ℹ️ Service Workers no soportados en este navegador', 'info');
+            }
+        });
+    </script>
+</body>
+</html>
