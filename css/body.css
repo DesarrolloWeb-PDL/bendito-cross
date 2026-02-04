@@ -23,7 +23,7 @@ body {
 */
 header {
     text-align: center;
-    padding: 5% 10%;
+    padding: 0.5rem 1rem;
 }
 
 a {
@@ -66,22 +66,20 @@ h2 {
 
 /* El logo principal animado en el nav */
 .logo-nav-animado {
-    width: 17rem;
-    height: 17rem;
+    width: 5rem;
+    height: auto;
     object-fit: contain;
     animation-name: left-to-right;
     animation-duration: 2s;
     display: block;
     margin: 0 auto;
 }
-    margin-top: auto;
-}
 
 .nav_items a {
     font-family: var(--font-heading);
     font-weight: 600;
-    font-size: 16px;
-    margin: 15px;
+    font-size: 0.9rem;
+    margin: 0 0.5rem;
     color: var(--color-blanco);
     text-decoration: none;
     position: relative;
