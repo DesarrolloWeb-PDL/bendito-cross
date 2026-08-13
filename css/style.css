@@ -422,6 +422,23 @@
     gap: 15px;
 }
 
+.timer-config label {
+    color: var(--color-blanco, white);
+    font-family: var(--font-body);
+    font-size: 0.95rem;
+}
+
+.timer-config input[type="number"] {
+    background: #222;
+    color: white;
+    border: 1px solid #555;
+    border-radius: 5px;
+    padding: 0.5rem;
+    text-align: center;
+    width: 70px;
+    margin-left: 8px;
+}
+
 .time-input {
     display: flex;
     align-items: center;
