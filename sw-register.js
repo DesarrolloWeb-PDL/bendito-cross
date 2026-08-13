@@ -30,22 +30,8 @@ if ('serviceWorker' in navigator) {
                 });
             });
         }).catch(error => {
-            console.warn('❌ Error al registrar Service Worker:', error);
-            console.warn('💡 Intenta ir a: reset-sw.html para limpiar');
-        });
-    });
-        
-        // Detectar nueva versión instalada
-        registration.addEventListener('updatefound', () => {
-            const newWorker = registration.installing;
-            newWorker.addEventListener('statechange', () => {
-                if (newWorker.state === 'activated') {
-                    console.log('🔄 Nueva versión disponible');
-                }
-            });
-        });
-    }).catch(error => {
         console.warn('❌ Error al registrar Service Worker:', error);
+        console.warn('💡 Intenta ir a: reset-sw.html para limpiar');
     });
     
     // Escuchar mensajes del Service Worker para recargar automáticamente
