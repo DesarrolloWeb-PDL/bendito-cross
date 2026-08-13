@@ -1,0 +1,102 @@
+<!DOCTYPE html>
+<html lang="es">
+    <head>
+        <meta charset="UTF-8">
+        <meta http-equiv="X-UA-Compatible" content="IE=edge">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <meta name="description" content="Tienda de productos para CrossFit — Bendito Cross">
+        <meta name="theme-color" content="#FF0000">
+        <meta name="apple-mobile-web-app-capable" content="yes">
+        <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+        <meta name="apple-mobile-web-app-title" content="Bendito Cross">
+        <title>Bendita Tienda - Bendito Cross</title>
+        <link rel="stylesheet" type="text/css" href="css/style.css">
+        <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.10.4/font/bootstrap-icons.css">
+        <link rel="manifest" href="manifest.json">
+        <link rel="shortcut icon" href="img/favicon.ico" type="image/x-icon">
+        <link rel="apple-touch-icon" href="img/benditocross.png">
+        <style>
+            .tienda-container {
+                max-width: 800px;
+                margin: 2rem auto;
+                padding: 2rem;
+                text-align: center;
+            }
+            .tienda-container h1 {
+                font-family: var(--font-heading);
+                color: var(--color-rojo);
+                margin-bottom: 1rem;
+            }
+            .tienda-container p {
+                color: var(--color-blanco);
+                font-size: 1.2rem;
+                margin-bottom: 2rem;
+            }
+            .tienda-container i {
+                font-size: 4rem;
+                color: var(--color-rojo);
+                margin-bottom: 1rem;
+            }
+        </style>
+    </head>
+<body>
+    <header>
+        <nav class="navbar">
+            <div class="nav_logo-bg-container">
+                <div class="nav_logo">
+                    <a href="index.html">
+                        <img src="img/logo-bendito.png" alt="Logo Bendito" class="logo-nav-animado">
+                    </a>
+                </div>
+            </div>
+            <div class="nav_items" id="_items">
+                <a href="index.html">INICIO</a>
+                <a href="rm.html">% RM</a>
+                <a href="fortime.html">FOR TIME</a>
+                <a href="ejercicios.html">EJERCICIOS</a>
+                <a href="musculacion.html">MUSCULACIÓN</a>
+                <a href="horarios.html">HORARIOS</a>
+                <a href="diccionario.html">DICCIONARIO</a>
+            </div>
+            <div class="nav_toggle" id="_toggle">
+                <span></span>
+                <span></span>
+                <span></span>
+            </div>
+        </nav>
+    </header>
+
+    <div class="clock-container">
+        <div class="clock" id="clock"></div>
+    </div>
+
+    <main class="tienda-container">
+        <i class="bi bi-shop"></i>
+        <h1>BENDITA TIENDA</h1>
+        <p>Próximamente podrás comprar suplementos, ropa y equipamiento para tu entrenamiento.</p>
+        <a href="index.html" class="tool-button">VOLVER AL INICIO</a>
+    </main>
+
+    <footer class="footer-distributed">
+        <div class="footer-container">
+            <div class="footer-info">
+                <h3>BENDITO CROSS</h3> 
+                <h5>FUNCIONAL GYM</h5>
+                <p class="footer-description">Gimnasio funcional dedicado a mejorar tu salud y bienestar</p>
+            </div>
+            <div class="footer-contact">
+                <p><i class="bi bi-geo-alt"></i> Amado Bonpland 434, Paso de los Libres</p>
+                <p><i class="bi bi-telephone"></i> +54 9 3772 636766</p>
+            </div>
+            <div class="footer-social">
+                <a href="https://www.instagram.com/benditocross/"><i class="bi bi-instagram"></i></a>
+                <a href="https://www.facebook.com/benditocross"><i class="bi bi-facebook"></i></a>
+                <a href="https://wa.me/+5493772636766"><i class="bi bi-whatsapp"></i></a>
+            </div>
+        </div>
+    </footer>
+
+    <script src="script.js"></script>
+    <script src="sw-register.js"></script>
+</body>
+</html>
