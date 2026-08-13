@@ -812,7 +812,7 @@
 }
 
 /* ============================================
-   RM CALCULATOR - Fix overflow
+   RM CALCULATOR - Dark theme consistent
    ============================================ */
 .rm-calculator {
   width: 100%;
@@ -822,36 +822,38 @@
 }
 
 .calculator {
-  background: rgba(73, 73, 73, 0.5);
+  background: rgba(30, 30, 30, 0.9);
   border-radius: 8px;
   padding: 1.5rem;
   text-align: center;
+  border: 1px solid #444;
 }
 
 .calculator h2 {
   font-family: var(--font-heading);
-  color: var(--color-blanco);
+  color: white;
   font-size: 1.3rem;
   margin-bottom: 1rem;
 }
 
 .calculator label {
   display: block;
-  color: var(--color-blanco);
+  color: #ccc;
   margin-bottom: 1rem;
   font-family: var(--font-body);
+  font-size: 0.95rem;
 }
 
 .calculator select,
-.calculator input {
+.calculator input[type="number"] {
   display: block;
   width: 100%;
   max-width: 250px;
   margin: 0.5rem auto;
-  padding: 0.6rem;
+  padding: 0.7rem;
   border-radius: 6px;
   border: 1px solid #555;
-  background: #222;
+  background: #111;
   color: white;
   font-size: 1rem;
   text-align: center;
@@ -868,7 +870,7 @@
 }
 
 .calculator select:focus,
-.calculator input:focus {
+.calculator input[type="number"]:focus {
   outline: none;
   border-color: var(--color-rojo, #e63946);
 }
@@ -893,7 +895,7 @@
 
 #result {
   margin-top: 1rem;
-  color: var(--color-blanco);
+  color: white;
   font-family: var(--font-body);
   font-size: 0.95rem;
   line-height: 1.6;
