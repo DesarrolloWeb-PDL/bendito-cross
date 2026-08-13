@@ -517,24 +517,48 @@
 
 /* Estilos para las pestañas */
 .timer-controls {
-    display: flex;
-    justify-content: center;
-    gap: 10px;
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(100px, 1fr));
+    gap: 8px;
     margin-bottom: 20px;
+    max-width: 600px;
+    margin-left: auto;
+    margin-right: auto;
+    padding: 0 1rem;
 }
 
 .timer-tab {
-    padding: 10px 20px;
+    padding: 0.6rem 0.8rem;
     border: none;
     border-radius: 5px;
     background-color: #ddd;
     cursor: pointer;
     transition: background-color 0.3s;
+    font-size: 0.85rem;
+    font-weight: 600;
+    text-align: center;
+    white-space: nowrap;
 }
 
 .timer-tab.active {
     background-color: #333;
     color: white;
+}
+
+.sound-toggle {
+    grid-column: 1 / -1;
+    justify-self: center;
+    background: none;
+    border: none;
+    color: var(--color-blanco);
+    font-size: 1.5rem;
+    cursor: pointer;
+    padding: 0.5rem;
+    transition: color 0.3s ease;
+}
+
+.sound-toggle:hover {
+    color: var(--color-rojo);
 }
 
 /* Estilos para las secciones */
@@ -783,6 +807,106 @@
 
 .time-preset-btn.active {
   background-color: var(--color-rojo, #e63946) !important;
+}
+
+/* ============================================
+   RM CALCULATOR - Fix overflow
+   ============================================ */
+.rm-calculator {
+  width: 100%;
+  max-width: 400px;
+  margin: 0 auto;
+  padding: 0 1rem;
+}
+
+.calculator {
+  background: rgba(73, 73, 73, 0.5);
+  border-radius: 8px;
+  padding: 1.5rem;
+  text-align: center;
+}
+
+.calculator h2 {
+  font-family: var(--font-heading);
+  color: var(--color-blanco);
+  font-size: 1.3rem;
+  margin-bottom: 1rem;
+}
+
+.calculator label {
+  display: block;
+  color: var(--color-blanco);
+  margin-bottom: 1rem;
+  font-family: var(--font-body);
+}
+
+.calculator select,
+.calculator input {
+  display: block;
+  width: 100%;
+  max-width: 250px;
+  margin: 0.5rem auto;
+  padding: 0.6rem;
+  border-radius: 6px;
+  border: 1px solid #555;
+  background: #222;
+  color: white;
+  font-size: 1rem;
+  text-align: center;
+}
+
+.calculator button {
+  background: var(--color-rojo);
+  color: white;
+  border: none;
+  padding: 0.8rem 1.5rem;
+  border-radius: 6px;
+  font-family: var(--font-heading);
+  font-weight: 600;
+  font-size: 1rem;
+  cursor: pointer;
+  transition: background 0.3s;
+  margin-top: 0.5rem;
+}
+
+.calculator button:hover {
+  background: #cc0000;
+}
+
+#result {
+  margin-top: 1rem;
+  color: var(--color-blanco);
+  font-family: var(--font-body);
+  font-size: 0.95rem;
+  line-height: 1.6;
+}
+
+/* ============================================
+   TOOL CARDS - Reduced height
+   ============================================ */
+.tool-card {
+  padding: 0.8rem;
+  min-height: fit-content;
+}
+
+.tool-card i {
+  font-size: clamp(1.5rem, 4vw, 2rem);
+}
+
+.tool-card h2 {
+  font-size: clamp(0.9rem, 2.5vw, 1.2rem);
+  margin: 0.3rem 0;
+}
+
+.tool-card p {
+  font-size: clamp(0.7rem, 1.8vw, 0.85rem);
+  margin: 0.3rem 0;
+  display: none;
+}
+
+.tool-button {
+  padding: 0.5rem 0.8rem;
+  font-size: clamp(0.7rem, 1.8vw, 0.8rem);
 }
 
 
