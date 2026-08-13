@@ -30,8 +30,9 @@ if ('serviceWorker' in navigator) {
                 });
             });
         }).catch(error => {
-        console.warn('❌ Error al registrar Service Worker:', error);
-        console.warn('💡 Intenta ir a: reset-sw.html para limpiar');
+            console.warn('❌ Error al registrar Service Worker:', error);
+            console.warn('💡 Intenta ir a: reset-sw.html para limpiar');
+        });
     });
     
     // Escuchar mensajes del Service Worker para recargar automáticamente
