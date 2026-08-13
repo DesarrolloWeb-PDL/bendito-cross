@@ -434,9 +434,10 @@
     height: 40px;
     text-align: center;
     font-size: 1em;
-    border: 2px solid #333;
+    border: 2px solid #555;
     border-radius: 5px;
-    background-color: #fff;
+    background-color: #222;
+    color: white;
 }
 
 .timer-mode {
@@ -514,7 +515,8 @@
     padding: 0.6rem 0.8rem;
     border: none;
     border-radius: 5px;
-    background-color: #ddd;
+    background-color: #333;
+    color: white;
     cursor: pointer;
     transition: background-color 0.3s;
     font-size: 0.85rem;
@@ -524,7 +526,7 @@
 }
 
 .timer-tab.active {
-    background-color: #333;
+    background-color: var(--color-rojo, #e74c3c);
     color: white;
 }
 
@@ -836,6 +838,22 @@
   color: white;
   font-size: 1rem;
   text-align: center;
+  appearance: none;
+  -webkit-appearance: none;
+}
+
+.calculator select {
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='12' viewBox='0 0 12 12'%3E%3Cpath fill='%23ffffff' d='M6 8L1 3h10z'/%3E%3C/svg%3E");
+  background-repeat: no-repeat;
+  background-position: right 12px center;
+  padding-right: 30px;
+  cursor: pointer;
+}
+
+.calculator select:focus,
+.calculator input:focus {
+  outline: none;
+  border-color: var(--color-rojo, #e63946);
 }
 
 .calculator button {
