@@ -819,6 +819,8 @@
   max-width: 400px;
   margin: 0 auto;
   padding: 0 1rem;
+  display: flex;
+  justify-content: center;
 }
 
 .calculator {
@@ -827,6 +829,8 @@
   padding: 1.5rem;
   text-align: center;
   border: 1px solid #444;
+  width: 100%;
+  max-width: 350px;
 }
 
 .calculator h2 {
