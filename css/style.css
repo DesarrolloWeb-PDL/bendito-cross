@@ -224,8 +224,18 @@
 }
 
 .tool-card:nth-child(4) {
+    grid-column: 2 / 3;
+    grid-row: 2 / 3;
+}
+
+.tool-card:nth-child(5) {
     grid-column: 1 / 3;
     grid-row: 3 / 4;
+}
+
+.tool-card:nth-child(6) {
+    grid-column: 1 / 3;
+    grid-row: 4 / 5;
 }
 
 /* Ajustes responsivos para herramientas */
