@@ -907,6 +907,26 @@
 }
 
 /* ============================================
+   CONTENT PAGES - Centered layout
+   ============================================ */
+.content,
+.videos,
+.horarios,
+.diccionario-lista {
+  max-width: 600px;
+  margin: 0 auto;
+  padding: 0 1rem;
+}
+
+.videos h2,
+.horarios h2,
+h2 {
+  text-align: center;
+  color: white;
+  font-family: var(--font-heading);
+}
+
+/* ============================================
    TOOL CARDS - Reduced height
    ============================================ */
 .tool-card {
