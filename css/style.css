@@ -206,7 +206,10 @@
     transform: translateY(-2px);
 }
 
-/* Ajustes específicos para cada tarjeta — positioning handled by grid flow */
+/* Ajustes específicos para cada tarjeta */
+.tool-card-wide {
+    grid-column: 1 / -1;
+}
 
 /* Ajustes responsivos para herramientas */
 @media (max-width: 768px) {
