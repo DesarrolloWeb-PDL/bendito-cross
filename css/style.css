@@ -914,8 +914,8 @@
    ============================================ */
 .content {
   width: 100%;
-  display: flex;
-  justify-content: center;
+  max-width: 600px;
+  margin: 0 auto;
   padding: 0 1rem;
   box-sizing: border-box;
 }
