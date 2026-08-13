@@ -4,12 +4,12 @@
         <meta charset="UTF-8">
         <meta http-equiv="X-UA-Compatible" content="IE=edge">
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
-        <meta name="description" content="Horarios, clases y entrenadores de Bendito Cross">
+        <meta name="description" content="Rutinas del día - Musculación - Bendito Cross">
         <meta name="theme-color" content="#FF0000">
         <meta name="apple-mobile-web-app-capable" content="yes">
         <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
         <meta name="apple-mobile-web-app-title" content="Bendito Cross">
-        <title>Bendito Cross - Funcional Gym</title>
+        <title>Bendito Cross - Rutinas</title>
         <link rel="stylesheet" type="text/css" href="css/style.css">
         <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.10.4/font/bootstrap-icons.css">
         <link rel="manifest" href="manifest.json">
@@ -47,52 +47,20 @@
         <div class="clock" id="clock"></div>
     </div>
 
-    <!-- Carrusel de banners -->
-    <div class="carrusel-banner" id="carrusel-banner">
-      <div class="carrusel-slide active">
-        <img src="img/@desarrolloweb.pdl.png" alt="Banner 1">
-        <a href="https://www.instagram.com/desarrolloweb.pdl/"></a>
-      </div>
-      <div class="carrusel-slide">
-        <img src="img/publi-desarrollo-bendito.png" alt="Banner 2">
-      </div>
-      <div class="carrusel-slide">
-        <img src="img/espacio-publi.png" alt="Banner 3">
-      </div>
-       <div class="carrusel-slide">
-        <img src="img/publi-desarrollo-bendito2.png" alt="Banner 4">
-      </div>
-      <!-- <button class="carrusel-btn prev" id="carrusel-prev">&#10094;</button>
-      <button class="carrusel-btn next" id="carrusel-next">&#10095;</button> -->
-    </div>
-    <h2>HORARIOS</h2>
-
-   <section class="horarios">
-    <div class="tool-card" id="horario1">
-        <i class="bi bi-clock"></i>
-        <h2>Funcional Cross</h2>
-        <p>08 - 14 - 15 - 16 hs.</p>
-        <span>Instructora Patricia León</span>
-    </div>
-    <div class="tool-card" id="horario2">
-        <i class="bi bi-clock"></i>
-        <h2>Funcional</h2>
-        <p>17 hs.</p>
-        <span>Profesor Joaquín Fretes</span>
-    </div>
-    <div class="tool-card" id="horario3">
-        <i class="bi bi-clock"></i>
-        <h2>Funcional Cross</h2>
-        <p>18 - 19 - 20 - 21 hs.</p>
-        <span>Instructor Hugo Caballero</span>
-    </div>
-</section>
-    <script src="../script.js"></script>  
+    <section class="tools-section">
+        <h1>RUTINAS DEL DÍA</h1>
+        <div class="tool-card" style="max-width:500px;margin:0 auto;">
+            <i class="bi bi-hourglass-split" style="font-size:3rem;color:var(--color-rojo);"></i>
+            <h2>Próximamente</h2>
+            <p>Próximamente podrás ver las rutinas que tus profes prepararon para hoy</p>
+            <a href="musculacion.html" class="tool-button">VOLVER A MUSCULACIÓN</a>
+        </div>
+    </section>
 
     <footer class="footer-distributed">
         <div class="footer-container">
             <div class="footer-info">
-                <h3>BENDITO CROSS</h3> 
+                <h3>BENDITO CROSS</h3>
                 <h5>FUNCIONAL GYM</h5>
                 <p class="footer-description">Gimnasio funcional dedicado a mejorar tu salud y bienestar</p>
             </div>
@@ -108,7 +76,7 @@
         </div>
     </footer>
 
-   <script src="script.js"></script>
-   <script src="sw-register.js"></script>
+    <script src="script.js"></script>
+    <script src="sw-register.js"></script>
 </body>
 </html>

@@ -31,6 +31,7 @@
                 <a href="rm.html">% RM</a>
                 <a href="fortime.html">FOR TIME</a>
                 <a href="ejercicios.html">EJERCICIOS</a>
+                <a href="musculacion.html">MUSCULACIÓN</a>
                 <a href="horarios.html">HORARIOS</a>
                 <a href="diccionario.html">DICCIONARIO</a>
             </div>
@@ -69,6 +70,11 @@
         <div class="timer-controls">
             <button class="timer-tab active" data-timer="stopwatch">Cronómetro</button>
             <button class="timer-tab" data-timer="tabata">Tabata</button>
+            <button class="timer-tab" data-timer="interval">Intervalos</button>
+            <button class="timer-tab" data-timer="rest">Descanso</button>
+            <button class="timer-tab" data-timer="tempo">Tempo</button>
+            <button class="timer-tab" data-timer="countdown">Cuenta Reg.</button>
+            <button class="timer-tab" data-timer="pomodoro">Pomodoro</button>
             <button id="sound-toggle" class="sound-toggle" title="Activar/Desactivar sonido">
                 <i class="bi bi-volume-up-fill"></i>
             </button>
@@ -123,6 +129,94 @@
                 <div class="timer-buttons">
                     <button id="tabata-start" class="timer-button">Iniciar</button>
                     <button id="tabata-reset" class="timer-button">Reiniciar</button>
+                </div>
+            </div>
+
+            <!-- Intervalos -->
+            <div class="timer-section" id="interval-section">
+                <h2>Intervalos</h2>
+                <div class="timer-config">
+                    <label>Trabajo (seg): <input type="number" id="interval-work" min="1" max="300" value="30" class="time-field"></label>
+                    <label>Descanso (seg): <input type="number" id="interval-rest" min="0" max="60" value="10" class="time-field"></label>
+                    <label>Rondas: <input type="number" id="interval-rounds" min="1" max="50" value="8" class="time-field"></label>
+                </div>
+                <div class="tabata-display">
+                    <div id="interval-time" class="tabata-time">00:00</div>
+                    <div id="interval-round" class="tabata-round">Ronda: 0/8</div>
+                    <div id="interval-phase" class="tabata-phase">Preparados</div>
+                </div>
+                <div class="timer-buttons">
+                    <button id="interval-start" class="timer-button">Iniciar</button>
+                    <button id="interval-reset" class="timer-button">Reiniciar</button>
+                </div>
+            </div>
+
+            <!-- Descanso -->
+            <div class="timer-section" id="rest-section">
+                <h2>Descanso</h2>
+                <div class="timer-config">
+                    <div class="time-picker" id="rest-time-picker"></div>
+                </div>
+                <div class="tabata-display">
+                    <div id="rest-time" class="tabata-time">00:00</div>
+                    <div id="rest-phase" class="tabata-phase">Preparados</div>
+                </div>
+                <div class="timer-buttons">
+                    <button id="rest-start" class="timer-button">Iniciar</button>
+                    <button id="rest-reset" class="timer-button">Reiniciar</button>
+                </div>
+            </div>
+
+            <!-- Tempo -->
+            <div class="timer-section" id="tempo-section">
+                <h2>Tempo Trainer</h2>
+                <div class="timer-config tempo-config">
+                    <label>Bajada (s): <input type="number" id="tempo-phase1" min="0" max="10" value="3" class="time-field"></label>
+                    <label>Pausa Baja (s): <input type="number" id="tempo-phase2" min="0" max="10" value="1" class="time-field"></label>
+                    <label>Subida (s): <input type="number" id="tempo-phase3" min="0" max="10" value="2" class="time-field"></label>
+                    <label>Pausa Alta (s): <input type="number" id="tempo-phase4" min="0" max="10" value="0" class="time-field"></label>
+                </div>
+                <div class="tabata-display">
+                    <div id="tempo-time" class="tabata-time">00:00</div>
+                    <div id="tempo-round" class="tabata-round">Ciclo: 0</div>
+                    <div id="tempo-phase" class="tabata-phase">Preparados</div>
+                </div>
+                <div class="timer-buttons">
+                    <button id="tempo-start" class="timer-button">Iniciar</button>
+                    <button id="tempo-reset" class="timer-button">Reiniciar</button>
+                </div>
+            </div>
+
+            <!-- Cuenta Regresiva -->
+            <div class="timer-section" id="countdown-section">
+                <h2>Cuenta Regresiva</h2>
+                <div class="timer-config">
+                    <div class="time-picker" id="countdown-time-picker"></div>
+                </div>
+                <div class="tabata-display">
+                    <div id="countdown-time" class="tabata-time">00:00</div>
+                </div>
+                <div class="timer-buttons">
+                    <button id="countdown-start" class="timer-button">Iniciar</button>
+                    <button id="countdown-reset" class="timer-button">Reiniciar</button>
+                </div>
+            </div>
+
+            <!-- Pomodoro -->
+            <div class="timer-section" id="pomodoro-section">
+                <h2>Pomodoro</h2>
+                <div class="timer-config">
+                    <label>Trabajo (s): <input type="number" id="pomodoro-work" min="1" max="300" value="45" class="time-field"></label>
+                    <label>Descanso (s): <input type="number" id="pomodoro-rest" min="1" max="60" value="15" class="time-field"></label>
+                </div>
+                <div class="tabata-display">
+                    <div id="pomodoro-time" class="tabata-time">00:00</div>
+                    <div id="pomodoro-round" class="tabata-round">Ronda: 0</div>
+                    <div id="pomodoro-phase" class="tabata-phase">Preparados</div>
+                </div>
+                <div class="timer-buttons">
+                    <button id="pomodoro-start" class="timer-button">Iniciar</button>
+                    <button id="pomodoro-reset" class="timer-button">Reiniciar</button>
                 </div>
             </div>
         </div>
