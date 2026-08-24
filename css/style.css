@@ -672,7 +672,7 @@
     overflow: hidden;
     border-radius: 16px;
     box-shadow: 0 4px 16px rgba(0,0,0,0.10);
-    background: #222;
+    background: transparent;
 }
 
 .carrusel-slide {
