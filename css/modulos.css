@@ -191,7 +191,7 @@
   grid-column: 1 / -1;
   font-family: var(--font-heading);
   font-weight: 700;
-  color: var(--color-rojo);
+  color: white;
   text-align: center;
   margin: 0;
   padding: 10px;
