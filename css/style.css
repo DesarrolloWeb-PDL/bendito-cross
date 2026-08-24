@@ -704,7 +704,7 @@
     display: block;
     border-radius: 16px;
     image-rendering: auto;
-    background: #222;
+    background: transparent;
 }
 
 .carrusel-btn {
