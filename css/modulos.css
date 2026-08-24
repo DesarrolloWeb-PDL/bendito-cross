@@ -108,10 +108,11 @@
     grid-column: span 1;
     border-radius: 4px;
     display: flex;
+    flex-direction: column;
     align-items: center;
-    justify-content: center;
+    justify-content: flex-end;
     padding: 0;
-    background: rgba(73, 73, 73, 0.5);
+    background: transparent;
     background-size: cover;
     background-repeat: no-repeat;
     background-position: center;
@@ -241,10 +242,11 @@
 .horario-info {
   position: relative;
   z-index: 1;
-  background: linear-gradient(transparent, rgba(0, 0, 0, 0.8));
+  background: linear-gradient(transparent 0%, rgba(0, 0, 0, 0.85) 100%);
   padding: 1rem;
   text-align: center;
   width: 100%;
+  margin-top: auto;
 }
 
 /* Modal overlay */
