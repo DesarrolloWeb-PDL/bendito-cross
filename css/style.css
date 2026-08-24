@@ -851,7 +851,7 @@
 .calculator select,
 .calculator input[type="number"] {
   display: block;
-  width: 250px;
+  width: 100%;
   margin: 0.5rem auto;
   padding: 0.7rem;
   border-radius: 6px;
@@ -860,6 +860,7 @@
   color: white;
   font-size: 1rem;
   text-align: center;
+  text-align-last: center;
   appearance: none;
   -webkit-appearance: none;
   box-sizing: border-box;
@@ -871,6 +872,10 @@
   background-position: right 12px center;
   padding-right: 30px;
   cursor: pointer;
+}
+
+.calculator select:hover {
+  border-color: var(--color-rojo, #e63946);
 }
 
 .calculator select:focus,
@@ -891,7 +896,7 @@
   cursor: pointer;
   transition: background 0.3s;
   margin-top: 0.5rem;
-  width: 250px;
+  width: 100%;
   display: block;
   margin-left: auto;
   margin-right: auto;
