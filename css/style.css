@@ -680,6 +680,7 @@
     width: 100%;
     height: auto;
     aspect-ratio: 1.5 / 1;
+    max-height: 300px;
     align-items: center;
     justify-content: center;
 }
