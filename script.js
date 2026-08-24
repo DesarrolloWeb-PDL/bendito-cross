@@ -1127,4 +1127,59 @@ class BenditoCrossApp {
 document.addEventListener('DOMContentLoaded', () => {
   const app = new BenditoCrossApp();
   app.init();
+  
+  // Modal de flyers de profes
+  initModalFlyer();
 });
+
+// ============================================
+// MODAL FLYER PROFESORES
+// ============================================
+function initModalFlyer() {
+  const modal = document.getElementById('modal-flyer');
+  const modalImg = document.getElementById('modal-flyer-img');
+  const modalClose = document.getElementById('modal-close');
+  const horarioCards = document.querySelectorAll('.horario-card');
+
+  if (!modal || !modalImg) return;
+
+  // Abrir modal al clickear una tarjeta
+  horarioCards.forEach(card => {
+    card.addEventListener('click', () => {
+      const flyerSrc = card.getAttribute('data-flyer');
+      const nombre = card.getAttribute('data-nombre');
+      
+      if (flyerSrc) {
+        modalImg.src = flyerSrc;
+        modalImg.alt = `Flyer de ${nombre}`;
+        modal.classList.add('active');
+        document.body.style.overflow = 'hidden';
+      }
+    });
+  });
+
+  // Cerrar modal con botón X
+  if (modalClose) {
+    modalClose.addEventListener('click', closeModal);
+  }
+
+  // Cerrar modal al clickear afuera
+  modal.addEventListener('click', (e) => {
+    if (e.target === modal) {
+      closeModal();
+    }
+  });
+
+  // Cerrar con tecla Escape
+  document.addEventListener('keydown', (e) => {
+    if (e.key === 'Escape' && modal.classList.contains('active')) {
+      closeModal();
+    }
+  });
+
+  function closeModal() {
+    modal.classList.remove('active');
+    document.body.style.overflow = '';
+    modalImg.src = '';
+  }
+}
