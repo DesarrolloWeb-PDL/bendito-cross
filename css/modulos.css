@@ -272,8 +272,8 @@
 .modal-content {
   position: relative;
   width: 100%;
-  max-width: 380px;
-  max-height: 90vh;
+  max-width: 300px;
+  max-height: 80vh;
   display: flex;
   flex-direction: column;
   align-items: center;
