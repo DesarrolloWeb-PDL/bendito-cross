@@ -201,15 +201,16 @@
   margin-bottom: 0.5rem;
 }
 
-/* Nombre del profe en rojo */
+/* Nombre del profe en tarjeta - Arial Bold grande rojo */
 .horario-nombre {
-  font-family: var(--font-heading);
-  font-weight: 700;
-  color: var(--color-rojo) !important;
-  font-size: clamp(1rem, 3vw, 1.4rem);
+  font-family: 'Arial', 'Helvetica Neue', sans-serif;
+  font-weight: 900;
+  color: var(--color-rojo);
+  font-size: clamp(1.3rem, 4vw, 1.8rem);
   text-transform: uppercase;
-  letter-spacing: 0.5px;
-  margin: 0;
+  letter-spacing: 1px;
+  margin: 0.5rem 0 0.25rem 0;
+  line-height: 1.2;
 }
 
 /* Tarjeta clickable */
@@ -262,19 +263,6 @@
     opacity: 1;
     transform: scale(1);
   }
-}
-
-/* Nombre del profe en el modal */
-.modal-nombre {
-  font-family: 'Arial', sans-serif;
-  font-weight: 900;
-  color: var(--color-rojo);
-  font-size: clamp(1.8rem, 6vw, 2.5rem);
-  text-transform: uppercase;
-  letter-spacing: 2px;
-  margin: 0 0 1rem 0;
-  text-align: center;
-  text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.5);
 }
 
 .modal-flyer-img {

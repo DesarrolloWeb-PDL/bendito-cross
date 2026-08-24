@@ -1138,7 +1138,6 @@ document.addEventListener('DOMContentLoaded', () => {
 function initModalFlyer() {
   const modal = document.getElementById('modal-flyer');
   const modalImg = document.getElementById('modal-flyer-img');
-  const modalNombre = document.getElementById('modal-nombre');
   const modalClose = document.getElementById('modal-close');
   const horarioCards = document.querySelectorAll('.horario-card');
 
@@ -1153,7 +1152,6 @@ function initModalFlyer() {
       if (flyerSrc) {
         modalImg.src = flyerSrc;
         modalImg.alt = `Flyer de ${nombre}`;
-        modalNombre.textContent = nombre;
         modal.classList.add('active');
         document.body.style.overflow = 'hidden';
       }
@@ -1183,6 +1181,5 @@ function initModalFlyer() {
     modal.classList.remove('active');
     document.body.style.overflow = '';
     modalImg.src = '';
-    modalNombre.textContent = '';
   }
 }
