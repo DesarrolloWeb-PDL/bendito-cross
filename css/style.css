@@ -875,7 +875,14 @@
 }
 
 .calculator select:hover {
-  border-color: var(--color-rojo, #e63946);
+  border-color: var(--color-rojo, #e63946) !important;
+  background-color: #444 !important;
+  color: white !important;
+}
+
+.calculator select option:hover {
+  background-color: var(--color-rojo, #e63946) !important;
+  color: white !important;
 }
 
 .calculator select:focus,
