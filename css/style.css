@@ -678,11 +678,10 @@
 .carrusel-slide {
     display: none;
     width: 100%;
-    height: auto;
-    aspect-ratio: 1.5 / 1;
-    max-height: 220px;
+    height: 220px;
     align-items: center;
     justify-content: center;
+    overflow: hidden;
 }
 
 .carrusel-slide.active {
@@ -737,8 +736,7 @@
     .carrusel-banner {
         max-width: 98vw;
     }
-    .carrusel-slide,
-    .carrusel-slide img {
+    .carrusel-slide {
         height: 150px;
     }
 }
