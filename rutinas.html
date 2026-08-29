@@ -4,17 +4,240 @@
         <meta charset="UTF-8">
         <meta http-equiv="X-UA-Compatible" content="IE=edge">
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
-        <meta name="description" content="Rutinas del día - Musculación - Bendito Cross">
+        <meta name="description" content="Rutinas del día para socios de Bendito Cross - Gimnasio Funcional en Paso de los Libres">
         <meta name="theme-color" content="#FF0000">
         <meta name="apple-mobile-web-app-capable" content="yes">
         <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
         <meta name="apple-mobile-web-app-title" content="Bendito Cross">
-        <title>Bendito Cross - Rutinas</title>
+        <title>Mis Rutinas — Bendito Cross</title>
         <link rel="stylesheet" type="text/css" href="css/style.css">
         <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.10.4/font/bootstrap-icons.css">
         <link rel="manifest" href="manifest.json">
         <link rel="shortcut icon" href="img/favicon.ico" type="image/x-icon">
         <link rel="apple-touch-icon" href="img/benditocross.png">
+        <style>
+            .rutinas-container {
+                max-width: 600px;
+                margin: 2rem auto;
+                padding: 0 1rem;
+            }
+            .login-card {
+                background: rgba(255,255,255,0.05);
+                border: 1px solid rgba(255,255,255,0.1);
+                border-radius: 16px;
+                padding: 2rem;
+                text-align: center;
+            }
+            .login-card h2 {
+                color: white;
+                margin-bottom: 0.5rem;
+            }
+            .login-card p {
+                color: #aaa;
+                margin-bottom: 1.5rem;
+            }
+            .search-wrapper {
+                position: relative;
+                margin-bottom: 1rem;
+            }
+            .search-input {
+                width: 100%;
+                padding: 1rem;
+                border-radius: 12px;
+                border: 1px solid rgba(255,255,255,0.2);
+                background: rgba(255,255,255,0.1);
+                color: white;
+                font-size: 1rem;
+                outline: none;
+                transition: border-color 0.2s;
+            }
+            .search-input:focus {
+                border-color: #FF0000;
+            }
+            .search-input::placeholder {
+                color: #888;
+            }
+            .autocomplete-list {
+                position: absolute;
+                top: 100%;
+                left: 0;
+                right: 0;
+                background: #222;
+                border-radius: 0 0 12px 12px;
+                max-height: 200px;
+                overflow-y: auto;
+                z-index: 10;
+                display: none;
+            }
+            .autocomplete-list.show {
+                display: block;
+            }
+            .autocomplete-item {
+                padding: 0.75rem 1rem;
+                color: white;
+                cursor: pointer;
+                border-bottom: 1px solid rgba(255,255,255,0.1);
+                transition: background 0.2s;
+            }
+            .autocomplete-item:hover {
+                background: rgba(255,0,0,0.2);
+            }
+            .autocomplete-item:last-child {
+                border-bottom: none;
+            }
+            .dni-input {
+                width: 100%;
+                padding: 1rem;
+                border-radius: 12px;
+                border: 1px solid rgba(255,255,255,0.2);
+                background: rgba(255,255,255,0.1);
+                color: white;
+                font-size: 1rem;
+                outline: none;
+                margin-bottom: 1rem;
+                transition: border-color 0.2s;
+            }
+            .dni-input:focus {
+                border-color: #FF0000;
+            }
+            .dni-input::placeholder {
+                color: #888;
+            }
+            .btn-enter {
+                width: 100%;
+                padding: 1rem;
+                border-radius: 12px;
+                border: none;
+                background: #FF0000;
+                color: white;
+                font-size: 1rem;
+                font-weight: bold;
+                cursor: pointer;
+                transition: background 0.2s;
+            }
+            .btn-enter:hover {
+                background: #CC0000;
+            }
+            .btn-enter:disabled {
+                opacity: 0.5;
+                cursor: not-allowed;
+            }
+            .error-msg {
+                color: #FF6B6B;
+                margin-top: 1rem;
+                display: none;
+            }
+            .error-msg.show {
+                display: block;
+            }
+            .selected-socio {
+                background: rgba(255,0,0,0.1);
+                border: 1px solid rgba(255,0,0,0.3);
+                border-radius: 12px;
+                padding: 1rem;
+                margin-bottom: 1rem;
+                display: flex;
+                align-items: center;
+                justify-content: space-between;
+            }
+            .selected-socio span {
+                color: white;
+                font-weight: 500;
+            }
+            .selected-socio button {
+                background: none;
+                border: none;
+                color: #888;
+                cursor: pointer;
+                font-size: 1.2rem;
+            }
+            .rutinas-list {
+                display: none;
+            }
+            .rutinas-list.show {
+                display: block;
+            }
+            .rutina-item {
+                background: rgba(255,255,255,0.05);
+                border: 1px solid rgba(255,255,255,0.1);
+                border-radius: 12px;
+                padding: 1.5rem;
+                margin-bottom: 1rem;
+            }
+            .rutina-header {
+                display: flex;
+                align-items: center;
+                gap: 0.75rem;
+                margin-bottom: 0.75rem;
+            }
+            .rutina-tipo {
+                padding: 0.25rem 0.75rem;
+                border-radius: 20px;
+                font-size: 0.75rem;
+                font-weight: bold;
+                text-transform: uppercase;
+            }
+            .tipo-crossfit {
+                background: rgba(255,0,0,0.2);
+                color: #FF6B6B;
+            }
+            .tipo-musculacion {
+                background: rgba(0,150,255,0.2);
+                color: #6BB3FF;
+            }
+            .rutina-titulo {
+                color: white;
+                font-size: 1.1rem;
+                font-weight: bold;
+            }
+            .rutina-contenido {
+                color: #ccc;
+                white-space: pre-wrap;
+                line-height: 1.6;
+            }
+            .rutina-footer {
+                margin-top: 1rem;
+                display: flex;
+                align-items: center;
+                justify-content: space-between;
+                color: #888;
+                font-size: 0.85rem;
+            }
+            .logout-btn {
+                background: none;
+                border: 1px solid rgba(255,255,255,0.2);
+                color: #aaa;
+                padding: 0.5rem 1rem;
+                border-radius: 8px;
+                cursor: pointer;
+                font-size: 0.9rem;
+                transition: all 0.2s;
+            }
+            .logout-btn:hover {
+                border-color: #FF0000;
+                color: #FF0000;
+            }
+            .welcome-msg {
+                color: white;
+                margin-bottom: 1.5rem;
+                padding: 1rem;
+                background: rgba(255,0,0,0.1);
+                border-radius: 12px;
+                display: flex;
+                align-items: center;
+                justify-content: space-between;
+            }
+            .no-rutinas {
+                text-align: center;
+                padding: 3rem;
+                color: #888;
+            }
+            .no-rutinas i {
+                font-size: 3rem;
+                margin-bottom: 1rem;
+                display: block;
+            }
+        </style>
     </head>
 <body>
     <header>
@@ -48,21 +271,71 @@
     </div>
 
     <section class="tools-section">
-        <h1>RUTINAS DEL DÍA</h1>
-        <div class="tool-card" style="max-width:500px;margin:0 auto;">
-            <i class="bi bi-hourglass-split" style="font-size:3rem;color:var(--color-rojo);"></i>
-            <h2>Próximamente</h2>
-            <p>Próximamente podrás ver las rutinas que tus profes prepararon para hoy</p>
-            <a href="musculacion.html" class="tool-button">VOLVER A MUSCULACIÓN</a>
+        <h1>MIS RUTINAS</h1>
+        
+        <div class="rutinas-container">
+            <!-- Formulario de Login -->
+            <div id="login-section" class="login-card">
+                <i class="bi bi-person-circle" style="font-size:4rem;color:var(--color-rojo);margin-bottom:1rem;"></i>
+                <h2>Accedé a tus Rutinas</h2>
+                <p>Buscá tu nombre y completá tu DNI para ver las rutinas del día</p>
+                
+                <div id="search-section">
+                    <div class="search-wrapper">
+                        <input 
+                            type="text" 
+                            id="search-input" 
+                            class="search-input" 
+                            placeholder="Buscá tu nombre..."
+                            autocomplete="off"
+                        >
+                        <div id="autocomplete-list" class="autocomplete-list"></div>
+                    </div>
+                </div>
+
+                <div id="dni-section" style="display:none;">
+                    <div class="selected-socio">
+                        <span id="selected-name"></span>
+                        <button id="change-socio" title="Cambiar socio">✕</button>
+                    </div>
+                    <input 
+                        type="password" 
+                        id="dni-input" 
+                        class="dni-input" 
+                        placeholder="Ingresá tu DNI"
+                        inputmode="numeric"
+                    >
+                    <button id="enter-btn" class="btn-enter" disabled>
+                        <i class="bi bi-box-arrow-in-right"></i> INGRESAR
+                    </button>
+                </div>
+
+                <p id="error-msg" class="error-msg"></p>
+            </div>
+
+            <!-- Lista de Rutinas -->
+            <div id="rutinas-section" class="rutinas-list">
+                <div id="welcome-msg" class="welcome-msg">
+                    <span>Hola, <strong id="user-name"></strong> 👋</span>
+                    <button id="logout-btn" class="logout-btn">Salir</button>
+                </div>
+                
+                <div id="rutinas-container"></div>
+                
+                <div id="no-rutinas" class="no-rutinas" style="display:none;">
+                    <i class="bi bi-calendar-x"></i>
+                    <p>No hay rutinas para hoy</p>
+                </div>
+            </div>
         </div>
     </section>
 
     <footer class="footer-distributed">
         <div class="footer-container">
             <div class="footer-info">
-                <h3>BENDITO CROSS</h3>
+                <h3>BENDITO CROSS</h3> 
                 <h5>FUNCIONAL GYM</h5>
-                <p class="footer-description">Gimnasio funcional dedicado a mejorar tu salud y bienestar</p>
+                <p class="footer-description">Gimnasio - Funcional Cross y Musculación</p>
             </div>
             <div class="footer-contact">
                 <p><a href="https://www.google.com/maps/search/Madariaga+1086,+Paso+de+los+Libres" target="_blank" style="color:inherit;text-decoration:none"><i class="bi bi-geo-alt"></i> Madariaga 1086, Paso de los Libres</a></p>
@@ -74,9 +347,222 @@
                 <a href="https://wa.me/+5493772408715"><i class="bi bi-whatsapp"></i></a>
             </div>
         </div>
+        <div class="footer-bottom">
+            <p>&copy; 2026 Bendito Cross. Todos los derechos reservados.</p>
+            <a href="https://desarrolloweb-pdl.vercel.app" target="_blank" rel="noopener noreferrer" class="footer-brand">
+                <span class="pdl-logo-sm" aria-hidden="true">
+                    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 32 32" fill="currentColor">
+                        <rect x="4" y="4" width="11" height="11" rx="2" opacity="1"/>
+                        <rect x="17" y="4" width="11" height="11" rx="2" opacity="0.7"/>
+                        <rect x="4" y="17" width="11" height="11" rx="2" opacity="0.5"/>
+                        <rect x="17" y="17" width="11" height="11" rx="2" opacity="0.3"/>
+                    </svg>
+                </span>
+                DesarrolloWeb-pdl
+            </a>
+        </div>
     </footer>
 
     <script src="script.js"></script>
     <script src="sw-register.js"></script>
+    <script>
+        // Configuración
+        const API_BASE = 'https://administracion-gimnasio-bendito-cross.vercel.app/api/public';
+        
+        // Estado
+        let selectedSocio = null;
+        let searchTimeout = null;
+
+        // Elementos
+        const searchInput = document.getElementById('search-input');
+        const autocompleteList = document.getElementById('autocomplete-list');
+        const searchSection = document.getElementById('search-section');
+        const dniSection = document.getElementById('dni-section');
+        const selectedName = document.getElementById('selected-name');
+        const dniInput = document.getElementById('dni-input');
+        const enterBtn = document.getElementById('enter-btn');
+        const errorMsg = document.getElementById('error-msg');
+        const loginSection = document.getElementById('login-section');
+        const rutinasSection = document.getElementById('rutinas-section');
+        const rutinasContainer = document.getElementById('rutinas-container');
+        const noRutinas = document.getElementById('no-rutinas');
+        const userName = document.getElementById('user-name');
+        const logoutBtn = document.getElementById('logout-btn');
+        const changeSocioBtn = document.getElementById('change-socio');
+
+        // Buscar socios
+        searchInput.addEventListener('input', (e) => {
+            const query = e.target.value.trim();
+            
+            if (searchTimeout) clearTimeout(searchTimeout);
+            
+            if (query.length < 2) {
+                autocompleteList.classList.remove('show');
+                return;
+            }
+
+            searchTimeout = setTimeout(async () => {
+                try {
+                    const res = await fetch(`${API_BASE}/socios?q=${encodeURIComponent(query)}`);
+                    const socios = await res.json();
+                    
+                    if (socios.length === 0) {
+                        autocompleteList.innerHTML = '<div class="autocomplete-item">No se encontraron resultados</div>';
+                    } else {
+                        autocompleteList.innerHTML = socios.map(s => 
+                            `<div class="autocomplete-item" data-id="${s.id}" data-name="${s.nombre} ${s.apellido}">
+                                ${s.nombre} ${s.apellido}
+                            </div>`
+                        ).join('');
+                    }
+                    autocompleteList.classList.add('show');
+                } catch (error) {
+                    console.error('Error buscando socios:', error);
+                }
+            }, 300);
+        });
+
+        // Seleccionar socio
+        autocompleteList.addEventListener('click', (e) => {
+            const item = e.target.closest('.autocomplete-item');
+            if (!item || !item.dataset.id) return;
+
+            selectedSocio = {
+                id: item.dataset.id,
+                nombre: item.dataset.name
+            };
+
+            selectedName.textContent = selectedSocio.nombre;
+            searchSection.style.display = 'none';
+            dniSection.style.display = 'block';
+            dniInput.focus();
+            errorMsg.classList.remove('show');
+        });
+
+        // Cambiar socio
+        changeSocioBtn.addEventListener('click', () => {
+            selectedSocio = null;
+            searchInput.value = '';
+            dniInput.value = '';
+            searchSection.style.display = 'block';
+            dniSection.style.display = 'none';
+            autocompleteList.classList.remove('show');
+            enterBtn.disabled = true;
+        });
+
+        // Habilitar botón cuando se ingresa DNI
+        dniInput.addEventListener('input', () => {
+            enterBtn.disabled = dniInput.value.trim().length < 7;
+        });
+
+        // Ingresar con Enter
+        dniInput.addEventListener('keypress', (e) => {
+            if (e.key === 'Enter' && !enterBtn.disabled) {
+                enterBtn.click();
+            }
+        });
+
+        // Botón ingresar
+        enterBtn.addEventListener('click', async () => {
+            if (!selectedSocio || !dniInput.value.trim()) return;
+
+            enterBtn.disabled = true;
+            enterBtn.innerHTML = '<i class="bi bi-hourglass-split"></i> Verificando...';
+            errorMsg.classList.remove('show');
+
+            try {
+                const res = await fetch(`${API_BASE}/auth`, {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify({
+                        socioId: selectedSocio.id,
+                        dni: dniInput.value.trim()
+                    })
+                });
+
+                const data = await res.json();
+
+                if (!res.ok) {
+                    throw new Error(data.error || 'Error al autenticar');
+                }
+
+                // Guardar token y mostrar rutinas
+                localStorage.setItem('bdt_token', data.token);
+                localStorage.setItem('bdt_user', JSON.stringify(data.socio));
+                showRutinas(data.token, data.socio.nombre);
+
+            } catch (error) {
+                errorMsg.textContent = error.message;
+                errorMsg.classList.add('show');
+                enterBtn.disabled = false;
+                enterBtn.innerHTML = '<i class="bi bi-box-arrow-in-right"></i> INGRESAR';
+            }
+        });
+
+        // Mostrar rutinas
+        async function showRutinas(token, nombre) {
+            loginSection.style.display = 'none';
+            rutinasSection.classList.add('show');
+            userName.textContent = nombre;
+
+            try {
+                const res = await fetch(`${API_BASE}/rutinas?token=${token}`);
+                const rutinas = await res.json();
+
+                if (!res.ok) {
+                    throw new Error(rutinas.error || 'Error al cargar rutinas');
+                }
+
+                if (rutinas.length === 0) {
+                    noRutinas.style.display = 'block';
+                    rutinasContainer.innerHTML = '';
+                } else {
+                    noRutinas.style.display = 'none';
+                    rutinasContainer.innerHTML = rutinas.map(r => `
+                        <div class="rutina-item">
+                            <div class="rutina-header">
+                                <span class="rutina-tipo ${r.tipo === 'crossfit' ? 'tipo-crossfit' : 'tipo-musculacion'}">
+                                    ${r.tipo === 'crossfit' ? '🔥 CrossFit' : '💪 Musculación'}
+                                </span>
+                                <span class="rutina-titulo">${r.titulo}</span>
+                            </div>
+                            <div class="rutina-contenido">${r.contenido}</div>
+                            <div class="rutina-footer">
+                                <span>Por: ${r.profesor.nombre}</span>
+                                ${r.nivel ? `<span>Nivel: ${r.nivel}</span>` : ''}
+                            </div>
+                        </div>
+                    `).join('');
+                }
+            } catch (error) {
+                console.error('Error:', error);
+                noRutinas.innerHTML = `<i class="bi bi-exclamation-circle"></i><p>${error.message}</p>`;
+                noRutinas.style.display = 'block';
+            }
+        }
+
+        // Logout
+        logoutBtn.addEventListener('click', () => {
+            localStorage.removeItem('bdt_token');
+            localStorage.removeItem('bdt_user');
+            selectedSocio = null;
+            searchInput.value = '';
+            dniInput.value = '';
+            loginSection.style.display = 'block';
+            rutinasSection.classList.remove('show');
+            searchSection.style.display = 'block';
+            dniSection.style.display = 'none';
+            enterBtn.disabled = true;
+            enterBtn.innerHTML = '<i class="bi bi-box-arrow-in-right"></i> INGRESAR';
+        });
+
+        // Verificar si ya hay sesión
+        const savedToken = localStorage.getItem('bdt_token');
+        const savedUser = localStorage.getItem('bdt_user');
+        if (savedToken && savedUser) {
+            const user = JSON.parse(savedUser);
+            showRutinas(savedToken, user.nombre);
+        }
+    </script>
 </body>
 </html>
