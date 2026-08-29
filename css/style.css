@@ -121,8 +121,9 @@
     transition: color 0.2s ease;
 }
 
-.footer-brand:hover {
-    color: #fff;
+.footer-brand:hover,
+.footer-brand:active {
+    color: #FF6600;
 }
 
 .pdl-logo-sm {
