@@ -779,11 +779,30 @@
 
             if (Array.isArray(data)) {
                 data.forEach(rutina => {
-                    const day = (rutina.dia || '').toLowerCase().normalize("NFD").replace(/[\u0300-\u036f]/g, "");
-                    if (byDay[day]) {
-                        // Filter by access type if needed
-                        if (tiposAcceso.length === 0 || tiposAcceso.includes(rutina.tipo)) {
-                            byDay[day].push(rutina);
+                    // Filter by access type if needed
+                    if (tiposAcceso.length > 0 && !tiposAcceso.includes(rutina.tipo)) return;
+
+                    // Check contenidoJson for day keys
+                    let contenido;
+                    try {
+                        contenido = typeof rutina.contenidoJson === 'string'
+                            ? JSON.parse(rutina.contenidoJson)
+                            : rutina.contenidoJson;
+                    } catch (e) { return; }
+
+                    if (!contenido || typeof contenido !== 'object') return;
+
+                    // Add routine to each day it contains exercises for
+                    for (const dayKey of Object.keys(byDay)) {
+                        const dayData = contenido[dayKey];
+                        if (dayData && typeof dayData === 'object') {
+                            // Check if any section has exercises
+                            const hasExercises = Object.values(dayData).some(
+                                v => Array.isArray(v) && v.length > 0
+                            );
+                            if (hasExercises) {
+                                byDay[dayKey].push({ ...rutina, _dayContent: dayData });
+                            }
                         }
                     }
                 });
@@ -864,11 +883,62 @@
         // Renderizar rutina estructurada
         function renderStructuredRutina(rutina) {
             // Check if has structured content
+            if (rutina._dayContent) {
+                // Day-specific content from weekly view
+                return renderStructuredContentForDay(rutina, rutina._dayContent);
+            }
             if (rutina.contenidoJson) {
                 return renderStructuredContent(rutina);
             }
             // Fallback to legacy
             return renderLegacyRutina(rutina);
+        }
+
+        // Renderizar contenido de un día específico
+        function renderStructuredContentForDay(rutina, dayContent) {
+            const tipoClass = rutina.tipo === 'crossfit' ? 'tipo-crossfit' : 'tipo-musculacion';
+            const tipoIcon = rutina.tipo === 'crossfit' ? '🔥' : '💪';
+
+            // Map section keys from WOD builder to display labels
+            const sectionMap = {
+                'activacion': { key: 'activacion', icon: '🔥', label: 'Activación' },
+                'entrada_calor': { key: 'entrada_calor', icon: '🏃', label: 'Entrada en calor' },
+                'trabajos_dia': { key: 'trabajos_dia', icon: '💪', label: 'Trabajos del día' },
+                'wod_dia': { key: 'wod_dia', icon: '⚡', label: 'WOD del día' },
+            };
+
+            let sectionsHtml = '';
+
+            for (const [sectionKey, config] of Object.entries(sectionMap)) {
+                const exercises = dayContent[sectionKey];
+                if (!exercises || !Array.isArray(exercises) || exercises.length === 0) continue;
+
+                const exercisesHtml = exercises.map(ex => renderExerciseEntry(ex)).join('');
+
+                sectionsHtml += `
+                    <div class="routine-section">
+                        <div class="section-header">
+                            <span class="section-icon">${config.icon}</span>
+                            <span class="section-title">${config.label}</span>
+                        </div>
+                        ${exercisesHtml}
+                    </div>
+                `;
+            }
+
+            return `
+                <div class="rutina-card">
+                    <div class="rutina-card-header">
+                        <span class="rutina-card-tipo ${tipoClass}">${tipoIcon} ${rutina.tipo}</span>
+                        <span class="rutina-card-title">${rutina.titulo}</span>
+                    </div>
+                    ${sectionsHtml}
+                    <div class="rutina-card-footer">
+                        <span>Por: ${rutina.profesor?.nombre || 'N/A'}</span>
+                        ${rutina.nivel ? `<span>Nivel: ${rutina.nivel}</span>` : ''}
+                    </div>
+                </div>
+            `;
         }
 
         // Renderizar contenido estructurado
