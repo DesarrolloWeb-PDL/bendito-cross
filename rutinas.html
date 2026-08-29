@@ -1025,7 +1025,7 @@
                         </span>
                         <span class="rutina-titulo">${rutina.titulo}</span>
                     </div>
-                    <div class="rutina-contenido">${rutina.contenido}</div>
+                    <div class="rutina-contenido">${rutina.contenido || ''}</div>
                     <div class="rutina-footer">
                         <span>Por: ${rutina.profesor?.nombre || 'N/A'}</span>
                         ${rutina.nivel ? `<span>Nivel: ${rutina.nivel}</span>` : ''}
