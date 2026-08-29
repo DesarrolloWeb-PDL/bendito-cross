@@ -486,10 +486,11 @@
                     throw new Error(data.error || 'Error al autenticar');
                 }
 
-                // Guardar token y mostrar rutinas
+                // Guardar token, tipos y mostrar rutinas
                 localStorage.setItem('bdt_token', data.token);
                 localStorage.setItem('bdt_user', JSON.stringify(data.socio));
-                showRutinas(data.token, data.socio.nombre);
+                localStorage.setItem('bdt_tipos', JSON.stringify(data.tiposAcceso || []));
+                showRutinas(data.token, data.socio.nombre, data.tiposAcceso || []);
 
             } catch (error) {
                 errorMsg.textContent = error.message;
@@ -500,25 +501,36 @@
         });
 
         // Mostrar rutinas
-        async function showRutinas(token, nombre) {
+        async function showRutinas(token, nombre, tiposAcceso = []) {
             loginSection.style.display = 'none';
             rutinasSection.classList.add('show');
             userName.textContent = nombre;
 
+            // Build query with types
+            let url = `${API_BASE}/rutinas?token=${token}`;
+            if (tiposAcceso.length === 1) {
+                url += `&tipo=${tiposAcceso[0]}`;
+            }
+
             try {
-                const res = await fetch(`${API_BASE}/rutinas?token=${token}`);
+                const res = await fetch(url);
                 const rutinas = await res.json();
 
                 if (!res.ok) {
                     throw new Error(rutinas.error || 'Error al cargar rutinas');
                 }
 
-                if (rutinas.length === 0) {
+                // Filter by access types if multiple
+                const filtered = tiposAcceso.length > 0
+                    ? rutinas.filter(r => tiposAcceso.includes(r.tipo))
+                    : rutinas;
+
+                if (filtered.length === 0) {
                     noRutinas.style.display = 'block';
                     rutinasContainer.innerHTML = '';
                 } else {
                     noRutinas.style.display = 'none';
-                    rutinasContainer.innerHTML = rutinas.map(r => `
+                    rutinasContainer.innerHTML = filtered.map(r => `
                         <div class="rutina-item">
                             <div class="rutina-header">
                                 <span class="rutina-tipo ${r.tipo === 'crossfit' ? 'tipo-crossfit' : 'tipo-musculacion'}">
@@ -545,6 +557,7 @@
         logoutBtn.addEventListener('click', () => {
             localStorage.removeItem('bdt_token');
             localStorage.removeItem('bdt_user');
+            localStorage.removeItem('bdt_tipos');
             selectedSocio = null;
             searchInput.value = '';
             dniInput.value = '';
@@ -559,9 +572,11 @@
         // Verificar si ya hay sesión
         const savedToken = localStorage.getItem('bdt_token');
         const savedUser = localStorage.getItem('bdt_user');
+        const savedTipos = localStorage.getItem('bdt_tipos');
         if (savedToken && savedUser) {
             const user = JSON.parse(savedUser);
-            showRutinas(savedToken, user.nombre);
+            const tipos = savedTipos ? JSON.parse(savedTipos) : [];
+            showRutinas(savedToken, user.nombre, tipos);
         }
     </script>
 </body>
