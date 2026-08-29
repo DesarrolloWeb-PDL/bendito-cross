@@ -239,6 +239,179 @@
                 margin-bottom: 1rem;
                 display: block;
             }
+
+            /* Weekly View Styles */
+            .weekly-view {
+                display: none;
+            }
+            .weekly-view.show {
+                display: block;
+            }
+            .day-tabs {
+                display: flex;
+                gap: 0.5rem;
+                overflow-x: auto;
+                padding: 0.5rem 0;
+                margin-bottom: 1.5rem;
+                -webkit-overflow-scrolling: touch;
+                scrollbar-width: none;
+            }
+            .day-tabs::-webkit-scrollbar {
+                display: none;
+            }
+            .day-tab {
+                padding: 0.75rem 1rem;
+                border-radius: 12px;
+                border: 1px solid rgba(255,255,255,0.15);
+                background: rgba(255,255,255,0.05);
+                color: #aaa;
+                cursor: pointer;
+                font-size: 0.9rem;
+                font-weight: 500;
+                white-space: nowrap;
+                transition: all 0.2s;
+                min-width: fit-content;
+            }
+            .day-tab:hover {
+                background: rgba(255,0,0,0.1);
+                border-color: rgba(255,0,0,0.3);
+            }
+            .day-tab.active {
+                background: #FF0000;
+                color: white;
+                border-color: #FF0000;
+            }
+            .day-tab.has-routines {
+                position: relative;
+            }
+            .day-tab.has-routines::after {
+                content: '';
+                position: absolute;
+                bottom: 4px;
+                left: 50%;
+                transform: translateX(-50%);
+                width: 6px;
+                height: 6px;
+                background: #4CAF50;
+                border-radius: 50%;
+            }
+            .day-tab.active.has-routines::after {
+                background: white;
+            }
+            .day-content {
+                display: none;
+            }
+            .day-content.active {
+                display: block;
+            }
+            .routine-section {
+                background: rgba(255,255,255,0.05);
+                border: 1px solid rgba(255,255,255,0.1);
+                border-radius: 12px;
+                padding: 1.25rem;
+                margin-bottom: 1rem;
+            }
+            .section-header {
+                display: flex;
+                align-items: center;
+                gap: 0.5rem;
+                margin-bottom: 1rem;
+                padding-bottom: 0.75rem;
+                border-bottom: 1px solid rgba(255,255,255,0.1);
+            }
+            .section-icon {
+                font-size: 1.2rem;
+            }
+            .section-title {
+                color: white;
+                font-size: 1rem;
+                font-weight: 600;
+            }
+            .exercise-entry {
+                display: flex;
+                align-items: flex-start;
+                gap: 1rem;
+                padding: 0.75rem 0;
+                border-bottom: 1px solid rgba(255,255,255,0.05);
+            }
+            .exercise-entry:last-child {
+                border-bottom: none;
+                padding-bottom: 0;
+            }
+            .exercise-info {
+                flex: 1;
+            }
+            .exercise-name {
+                color: white;
+                font-weight: 500;
+                margin-bottom: 0.25rem;
+            }
+            .exercise-reps {
+                color: #FF6B6B;
+                font-size: 0.9rem;
+                font-weight: 500;
+            }
+            .exercise-notes {
+                color: #888;
+                font-size: 0.85rem;
+                margin-top: 0.25rem;
+            }
+            .exercise-media {
+                flex-shrink: 0;
+                width: 80px;
+                height: 80px;
+                border-radius: 8px;
+                overflow: hidden;
+                background: rgba(0,0,0,0.3);
+            }
+            .exercise-media img {
+                width: 100%;
+                height: 100%;
+                object-fit: cover;
+            }
+            .exercise-media iframe {
+                width: 100%;
+                height: 100%;
+                border: none;
+            }
+            .rutina-card {
+                background: rgba(255,255,255,0.03);
+                border: 1px solid rgba(255,255,255,0.08);
+                border-radius: 10px;
+                padding: 1rem;
+                margin-bottom: 1rem;
+            }
+            .rutina-card-header {
+                display: flex;
+                align-items: center;
+                gap: 0.5rem;
+                margin-bottom: 0.75rem;
+            }
+            .rutina-card-tipo {
+                padding: 0.2rem 0.6rem;
+                border-radius: 15px;
+                font-size: 0.7rem;
+                font-weight: bold;
+                text-transform: uppercase;
+            }
+            .rutina-card-title {
+                color: white;
+                font-size: 1rem;
+                font-weight: 600;
+            }
+            .rutina-card-footer {
+                margin-top: 0.75rem;
+                display: flex;
+                align-items: center;
+                justify-content: space-between;
+                color: #666;
+                font-size: 0.8rem;
+            }
+            .legacy-content {
+                color: #ccc;
+                white-space: pre-wrap;
+                line-height: 1.6;
+            }
         </style>
     </head>
 <body>
@@ -322,6 +495,13 @@
                     <button id="logout-btn" class="logout-btn">Salir</button>
                 </div>
                 
+                <!-- Weekly View -->
+                <div id="weekly-view" class="weekly-view">
+                    <div id="day-tabs" class="day-tabs"></div>
+                    <div id="day-content-container"></div>
+                </div>
+                
+                <!-- Legacy View (fallback) -->
                 <div id="rutinas-container"></div>
                 
                 <div id="no-rutinas" class="no-rutinas" style="display:none;">
@@ -374,6 +554,33 @@
         // Estado
         let selectedSocio = null;
         let searchTimeout = null;
+        let weeklyData = null;
+        let activeDay = null;
+
+        // Días de la semana
+        const DIAS_SEMANA = [
+            { key: 'lunes', label: 'Lunes', short: 'Lun' },
+            { key: 'martes', label: 'Martes', short: 'Mar' },
+            { key: 'miercoles', label: 'Miércoles', short: 'Mié' },
+            { key: 'jueves', label: 'Jueves', short: 'Jue' },
+            { key: 'viernes', label: 'Viernes', short: 'Vie' },
+            { key: 'sabado', label: 'Sábado', short: 'Sáb' }
+        ];
+
+        // Mapeo de secciones con iconos
+        const SECTION_ICONS = {
+            'activacion': '🔥',
+            'entrada_en_calor': '🏃',
+            'trabajos_del_dia': '💪',
+            'wod_del_dia': '⚡'
+        };
+
+        const SECTION_LABELS = {
+            'activacion': 'Activación',
+            'entrada_en_calor': 'Entrada en calor',
+            'trabajos_del_dia': 'Trabajos del día',
+            'wod_del_dia': 'WOD del día'
+        };
 
         // Elementos
         const searchInput = document.getElementById('search-input');
@@ -391,6 +598,9 @@
         const userName = document.getElementById('user-name');
         const logoutBtn = document.getElementById('logout-btn');
         const changeSocioBtn = document.getElementById('change-socio');
+        const weeklyView = document.getElementById('weekly-view');
+        const dayTabsContainer = document.getElementById('day-tabs');
+        const dayContentContainer = document.getElementById('day-content-container');
 
         // Buscar socios
         searchInput.addEventListener('input', (e) => {
@@ -508,7 +718,24 @@
             rutinasSection.classList.add('show');
             userName.textContent = nombre;
 
-            // Build query with types
+            // Try weekly endpoint first
+            try {
+                let weeklyUrl = `${API_BASE}/rutinas/weekly?token=${token}`;
+                if (tiposAcceso.length === 1) {
+                    weeklyUrl += `&tipo=${tiposAcceso[0]}`;
+                }
+
+                const weeklyRes = await fetch(weeklyUrl);
+                if (weeklyRes.ok) {
+                    weeklyData = await weeklyRes.json();
+                    renderWeeklyView(weeklyData, tiposAcceso);
+                    return;
+                }
+            } catch (e) {
+                console.log('Weekly endpoint not available, falling back to daily');
+            }
+
+            // Fallback to daily endpoint
             let url = `${API_BASE}/rutinas?token=${token}`;
             if (tiposAcceso.length === 1) {
                 url += `&tipo=${tiposAcceso[0]}`;
@@ -532,21 +759,7 @@
                     rutinasContainer.innerHTML = '';
                 } else {
                     noRutinas.style.display = 'none';
-                    rutinasContainer.innerHTML = filtered.map(r => `
-                        <div class="rutina-item">
-                            <div class="rutina-header">
-                                <span class="rutina-tipo ${r.tipo === 'crossfit' ? 'tipo-crossfit' : 'tipo-musculacion'}">
-                                    ${r.tipo === 'crossfit' ? '🔥 CrossFit' : '💪 Musculación'}
-                                </span>
-                                <span class="rutina-titulo">${r.titulo}</span>
-                            </div>
-                            <div class="rutina-contenido">${r.contenido}</div>
-                            <div class="rutina-footer">
-                                <span>Por: ${r.profesor.nombre}</span>
-                                ${r.nivel ? `<span>Nivel: ${r.nivel}</span>` : ''}
-                            </div>
-                        </div>
-                    `).join('');
+                    rutinasContainer.innerHTML = filtered.map(r => renderLegacyRutina(r)).join('');
                 }
             } catch (error) {
                 console.error('Error:', error);
@@ -555,20 +768,292 @@
             }
         }
 
+        // Renderizar vista semanal
+        function renderWeeklyView(data, tiposAcceso) {
+            weeklyView.classList.add('show');
+            rutinasContainer.style.display = 'none';
+
+            // Group routines by day
+            const byDay = {};
+            DIAS_SEMANA.forEach(d => byDay[d.key] = []);
+
+            if (Array.isArray(data)) {
+                data.forEach(rutina => {
+                    const day = (rutina.dia || '').toLowerCase().normalize("NFD").replace(/[\u0300-\u036f]/g, "");
+                    if (byDay[day]) {
+                        // Filter by access type if needed
+                        if (tiposAcceso.length === 0 || tiposAcceso.includes(rutina.tipo)) {
+                            byDay[day].push(rutina);
+                        }
+                    }
+                });
+            }
+
+            // Render tabs
+            const today = new Date().getDay(); // 0=Sunday, 1=Monday...
+            const todayIndex = today === 0 ? 5 : today - 1; // Map to 0-5 (Mon-Sat)
+
+            dayTabsContainer.innerHTML = DIAS_SEMANA.map((d, i) => {
+                const hasRoutines = byDay[d.key].length > 0;
+                const isActive = i === todayIndex || (i === 0 && !byDay[DIAS_SEMANA[todayIndex].key].length);
+                return `<button class="day-tab ${hasRoutines ? 'has-routines' : ''} ${isActive ? 'active' : ''}" data-day="${d.key}">
+                    <span class="day-tab-full">${d.label}</span>
+                    <span class="day-tab-short">${d.short}</span>
+                </button>`;
+            }).join('');
+
+            // Render day contents
+            dayContentContainer.innerHTML = DIAS_SEMANA.map((d, i) => {
+                const routines = byDay[d.key];
+                const isActive = i === todayIndex || (i === 0 && !byDay[DIAS_SEMANA[todayIndex].key].length);
+                
+                let content = '';
+                if (routines.length === 0) {
+                    content = `<div class="no-rutinas">
+                        <i class="bi bi-calendar-x"></i>
+                        <p>No hay rutinas para ${d.label}</p>
+                    </div>`;
+                } else {
+                    content = routines.map(r => renderStructuredRutina(r)).join('');
+                }
+
+                return `<div class="day-content ${isActive ? 'active' : ''}" data-day="${d.key}">
+                    ${content}
+                </div>`;
+            }).join('');
+
+            // Set initial active day
+            const initialActive = document.querySelector('.day-tab.active');
+            if (initialActive) {
+                activeDay = initialActive.dataset.day;
+            }
+
+            // Tab click handlers
+            dayTabsContainer.addEventListener('click', (e) => {
+                const tab = e.target.closest('.day-tab');
+                if (!tab) return;
+
+                // Update active tab
+                document.querySelectorAll('.day-tab').forEach(t => t.classList.remove('active'));
+                tab.classList.add('active');
+
+                // Update active content
+                const day = tab.dataset.day;
+                document.querySelectorAll('.day-content').forEach(c => c.classList.remove('active'));
+                document.querySelector(`.day-content[data-day="${day}"]`).classList.add('active');
+                
+                activeDay = day;
+            });
+
+            // Handle responsive tab labels
+            updateTabLabels();
+            window.addEventListener('resize', updateTabLabels);
+        }
+
+        // Update tab labels based on screen width
+        function updateTabLabels() {
+            const isMobile = window.innerWidth < 480;
+            document.querySelectorAll('.day-tab-full').forEach(el => {
+                el.style.display = isMobile ? 'none' : 'inline';
+            });
+            document.querySelectorAll('.day-tab-short').forEach(el => {
+                el.style.display = isMobile ? 'inline' : 'none';
+            });
+        }
+
+        // Renderizar rutina estructurada
+        function renderStructuredRutina(rutina) {
+            // Check if has structured content
+            if (rutina.contenidoJson) {
+                return renderStructuredContent(rutina);
+            }
+            // Fallback to legacy
+            return renderLegacyRutina(rutina);
+        }
+
+        // Renderizar contenido estructurado
+        function renderStructuredContent(rutina) {
+            let contenido;
+            try {
+                contenido = typeof rutina.contenidoJson === 'string' 
+                    ? JSON.parse(rutina.contenidoJson) 
+                    : rutina.contenidoJson;
+            } catch (e) {
+                return renderLegacyRutina(rutina);
+            }
+
+            const tipoClass = rutina.tipo === 'crossfit' ? 'tipo-crossfit' : 'tipo-musculacion';
+            const tipoIcon = rutina.tipo === 'crossfit' ? '🔥' : '💪';
+
+            let sectionsHtml = '';
+            
+            // Process each section
+            const sectionOrder = ['activacion', 'entrada_en_calor', 'trabajos_del_dia', 'wod_del_dia'];
+            
+            sectionOrder.forEach(sectionKey => {
+                const exercises = contenido[sectionKey];
+                if (!exercises || !Array.isArray(exercises) || exercises.length === 0) return;
+
+                const icon = SECTION_ICONS[sectionKey] || '📋';
+                const label = SECTION_LABELS[sectionKey] || sectionKey;
+
+                const exercisesHtml = exercises.map(ex => renderExerciseEntry(ex)).join('');
+
+                sectionsHtml += `
+                    <div class="routine-section">
+                        <div class="section-header">
+                            <span class="section-icon">${icon}</span>
+                            <span class="section-title">${label}</span>
+                        </div>
+                        ${exercisesHtml}
+                    </div>
+                `;
+            });
+
+            // If no sections rendered, check for other keys
+            if (!sectionsHtml) {
+                // Try to render any content as sections
+                const keys = Object.keys(contenido);
+                keys.forEach(key => {
+                    const exercises = contenido[key];
+                    if (!Array.isArray(exercises) || exercises.length === 0) return;
+
+                    const icon = SECTION_ICONS[key] || '📋';
+                    const label = SECTION_LABELS[key] || key.replace(/_/g, ' ').replace(/\b\w/g, l => l.toUpperCase());
+
+                    const exercisesHtml = exercises.map(ex => renderExerciseEntry(ex)).join('');
+
+                    sectionsHtml += `
+                        <div class="routine-section">
+                            <div class="section-header">
+                                <span class="section-icon">${icon}</span>
+                                <span class="section-title">${label}</span>
+                            </div>
+                            ${exercisesHtml}
+                        </div>
+                    `;
+                });
+            }
+
+            return `
+                <div class="rutina-card">
+                    <div class="rutina-card-header">
+                        <span class="rutina-card-tipo ${tipoClass}">${tipoIcon} ${rutina.tipo}</span>
+                        <span class="rutina-card-title">${rutina.titulo}</span>
+                    </div>
+                    ${sectionsHtml}
+                    <div class="rutina-card-footer">
+                        <span>Por: ${rutina.profesor?.nombre || 'N/A'}</span>
+                        ${rutina.nivel ? `<span>Nivel: ${rutina.nivel}</span>` : ''}
+                    </div>
+                </div>
+            `;
+        }
+
+        // Renderizar entrada de ejercicio
+        function renderExerciseEntry(exercise) {
+            const name = exercise.nombre || exercise.name || 'Ejercicio';
+            const reps = exercise.repeticiones || exercise.reps || '';
+            const notes = exercise.notas || exercise.notes || '';
+            
+            let mediaHtml = '';
+            
+            // Check for media (GIF or video)
+            if (exercise.gifUrl || exercise.gif_url) {
+                const gifUrl = exercise.gifUrl || exercise.gif_url;
+                mediaHtml = `
+                    <div class="exercise-media">
+                        <img src="${gifUrl}" alt="${name}" loading="lazy">
+                    </div>
+                `;
+            } else if (exercise.videoUrl || exercise.video_url || exercise.youtubeUrl || exercise.youtube_url) {
+                const videoUrl = exercise.videoUrl || exercise.video_url || exercise.youtubeUrl || exercise.youtube_url;
+                const embedUrl = convertToEmbedUrl(videoUrl);
+                if (embedUrl) {
+                    mediaHtml = `
+                        <div class="exercise-media">
+                            <iframe src="${embedUrl}" title="${name}" loading="lazy" allowfullscreen></iframe>
+                        </div>
+                    `;
+                }
+            }
+
+            return `
+                <div class="exercise-entry">
+                    <div class="exercise-info">
+                        <div class="exercise-name">${name}</div>
+                        ${reps ? `<div class="exercise-reps">${reps}</div>` : ''}
+                        ${notes ? `<div class="exercise-notes">${notes}</div>` : ''}
+                    </div>
+                    ${mediaHtml}
+                </div>
+            `;
+        }
+
+        // Convertir URL de YouTube a embed
+        function convertToEmbedUrl(url) {
+            if (!url) return null;
+            
+            // Already embed URL
+            if (url.includes('youtube.com/embed/')) return url;
+            
+            // Watch URL
+            const watchMatch = url.match(/youtube\.com\/watch\?v=([^&]+)/);
+            if (watchMatch) {
+                return `https://www.youtube.com/embed/${watchMatch[1]}`;
+            }
+            
+            // Short URL
+            const shortMatch = url.match(/youtu\.be\/([^?]+)/);
+            if (shortMatch) {
+                return `https://www.youtube.com/embed/${shortMatch[1]}`;
+            }
+            
+            return null;
+        }
+
+        // Renderizar rutina legacy (texto plano)
+        function renderLegacyRutina(rutina) {
+            const tipoClass = rutina.tipo === 'crossfit' ? 'tipo-crossfit' : 'tipo-musculacion';
+            const tipoIcon = rutina.tipo === 'crossfit' ? '🔥' : '💪';
+
+            return `
+                <div class="rutina-item">
+                    <div class="rutina-header">
+                        <span class="rutina-tipo ${tipoClass}">
+                            ${tipoIcon} ${rutina.tipo === 'crossfit' ? 'CrossFit' : 'Musculación'}
+                        </span>
+                        <span class="rutina-titulo">${rutina.titulo}</span>
+                    </div>
+                    <div class="rutina-contenido">${rutina.contenido}</div>
+                    <div class="rutina-footer">
+                        <span>Por: ${rutina.profesor?.nombre || 'N/A'}</span>
+                        ${rutina.nivel ? `<span>Nivel: ${rutina.nivel}</span>` : ''}
+                    </div>
+                </div>
+            `;
+        }
+
         // Logout
         logoutBtn.addEventListener('click', () => {
             localStorage.removeItem('bdt_token');
             localStorage.removeItem('bdt_user');
             localStorage.removeItem('bdt_tipos');
             selectedSocio = null;
+            weeklyData = null;
+            activeDay = null;
             searchInput.value = '';
             dniInput.value = '';
             loginSection.style.display = 'block';
             rutinasSection.classList.remove('show');
+            weeklyView.classList.remove('show');
+            rutinasContainer.style.display = '';
             searchSection.style.display = 'block';
             dniSection.style.display = 'none';
             enterBtn.disabled = true;
             enterBtn.innerHTML = '<i class="bi bi-box-arrow-in-right"></i> INGRESAR';
+            dayTabsContainer.innerHTML = '';
+            dayContentContainer.innerHTML = '';
         });
 
         // Verificar si ya hay sesión
