@@ -491,7 +491,10 @@
             <!-- Lista de Rutinas -->
             <div id="rutinas-section" class="rutinas-list">
                 <div id="welcome-msg" class="welcome-msg">
-                    <span>Hola, <strong id="user-name"></strong> 👋</span>
+                    <div>
+                        <span>Hola, <strong id="user-name"></strong> 👋</span>
+                        <div id="profe-info" style="font-size:0.85rem;color:#aaa;margin-top:0.25rem;"></div>
+                    </div>
                     <button id="logout-btn" class="logout-btn">Salir</button>
                 </div>
                 
@@ -702,6 +705,8 @@
                 localStorage.setItem('bdt_token', data.token);
                 localStorage.setItem('bdt_user', JSON.stringify(data.socio));
                 localStorage.setItem('bdt_tipos', JSON.stringify(data.tiposAcceso || []));
+                if (data.profesor) localStorage.setItem('bdt_profesor', JSON.stringify(data.profesor));
+                if (data.checkInTime) localStorage.setItem('bdt_checkin', data.checkInTime);
                 showRutinas(data.token, data.socio.nombre, data.tiposAcceso || []);
 
             } catch (error) {
@@ -717,6 +722,22 @@
             loginSection.style.display = 'none';
             rutinasSection.classList.add('show');
             userName.textContent = nombre;
+
+            // Show professor and check-in time
+            const profeInfo = document.getElementById('profe-info');
+            const savedProfesor = localStorage.getItem('bdt_profesor');
+            const savedCheckin = localStorage.getItem('bdt_checkin');
+            if (savedProfesor && savedCheckin) {
+                const prof = JSON.parse(savedProfesor);
+                const checkin = new Date(savedCheckin);
+                const hora = checkin.toLocaleTimeString('es-AR', { hour: '2-digit', minute: '2-digit' });
+                profeInfo.innerHTML = `<i class="bi bi-person-badge"></i> Profe: <strong>${prof.nombre}</strong> · Ingreso: <strong>${hora}</strong>`;
+            } else if (savedProfesor) {
+                const prof = JSON.parse(savedProfesor);
+                profeInfo.innerHTML = `<i class="bi bi-person-badge"></i> Profe: <strong>${prof.nombre}</strong>`;
+            } else {
+                profeInfo.innerHTML = '';
+            }
 
             // Try weekly endpoint first
             try {
@@ -1118,6 +1139,8 @@
             localStorage.removeItem('bdt_token');
             localStorage.removeItem('bdt_user');
             localStorage.removeItem('bdt_tipos');
+            localStorage.removeItem('bdt_profesor');
+            localStorage.removeItem('bdt_checkin');
             selectedSocio = null;
             weeklyData = null;
             activeDay = null;
