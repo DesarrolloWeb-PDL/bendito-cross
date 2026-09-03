@@ -1,4 +1,4 @@
-const CACHE_NAME = 'bendito-cross-v2';
+const CACHE_NAME = 'bendito-cross-v4';
 const urlsToCache = [
   '/',
   '/index.html',
@@ -7,6 +7,7 @@ const urlsToCache = [
   '/ejercicios.html',
   '/horarios.html',
   '/diccionario.html',
+  '/rutinas.html',
   '/css/style.css',
   '/css/body.css',
   '/css/nav.css',
