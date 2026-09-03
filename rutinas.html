@@ -996,13 +996,13 @@
                 const exercises = contenido[sectionKey];
                 if (!exercises || !Array.isArray(exercises) || exercises.length === 0) return;
 
-                const SECTION_ICONS_LOCAL: Record<string, string> = {
+                const SECTION_ICONS_LOCAL = {
                     'activacion': '🔥', 'entrada_calor': '🏃', 'entrada_en_calor': '🏃',
                     'trabajos_dia': '💪', 'trabajos_del_dia': '💪',
                     'wod_dia': '⚡', 'wod_del_dia': '⚡',
                     'superiores': '💪', 'zona_media': '🏋️', 'inferiores': '🦵'
                 };
-                const SECTION_LABELS_LOCAL: Record<string, string> = {
+                const SECTION_LABELS_LOCAL = {
                     'activacion': 'Activación', 'entrada_calor': 'Entrada en calor', 'entrada_en_calor': 'Entrada en calor',
                     'trabajos_dia': 'Trabajos del día', 'trabajos_del_dia': 'Trabajos del día',
                     'wod_dia': 'WOD del día', 'wod_del_dia': 'WOD del día',
