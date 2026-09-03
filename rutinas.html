@@ -17,126 +17,143 @@
         <link rel="apple-touch-icon" href="img/benditocross.png">
         <style>
             .rutinas-container {
-                max-width: 600px;
+                max-width: 500px;
                 margin: 2rem auto;
                 padding: 0 1rem;
             }
             .login-card {
                 background: rgba(255,255,255,0.05);
                 border: 1px solid rgba(255,255,255,0.1);
-                border-radius: 16px;
-                padding: 2rem;
+                border-radius: 20px;
+                padding: 2.5rem 2rem;
                 text-align: center;
-                max-width: 100%;
             }
             .login-card h2 {
                 color: white;
                 margin-bottom: 0.5rem;
+                font-size: 1.4rem;
+                letter-spacing: 0.5px;
             }
             .login-card p {
-                color: #aaa;
+                color: #999;
                 margin-bottom: 1.5rem;
+                font-size: 0.9rem;
             }
             .search-wrapper {
                 position: relative;
                 margin-bottom: 1rem;
-                max-width: 100%;
             }
             .search-input {
                 width: 100%;
-                padding: 1rem;
-                border-radius: 12px;
-                border: 1px solid rgba(255,255,255,0.2);
-                background: rgba(255,255,255,0.1);
+                padding: 1rem 1.2rem;
+                border-radius: 14px;
+                border: 1px solid rgba(255,255,255,0.15);
+                background: rgba(255,255,255,0.08);
                 color: white;
                 font-size: 1rem;
                 outline: none;
-                transition: border-color 0.2s;
+                transition: border-color 0.2s, box-shadow 0.2s;
+                box-sizing: border-box;
             }
             .search-input:focus {
                 border-color: #FF0000;
+                box-shadow: 0 0 0 3px rgba(255,0,0,0.15);
             }
             .search-input::placeholder {
-                color: #888;
+                color: #666;
             }
             .autocomplete-list {
                 position: absolute;
                 top: 100%;
                 left: 0;
                 right: 0;
-                background: #222;
-                border-radius: 0 0 12px 12px;
+                background: #1a1a1a;
+                border-radius: 0 0 14px 14px;
                 max-height: 200px;
                 overflow-y: auto;
                 z-index: 10;
                 display: none;
+                border: 1px solid rgba(255,255,255,0.1);
+                border-top: none;
             }
             .autocomplete-list.show {
                 display: block;
             }
             .autocomplete-item {
-                padding: 0.75rem 1rem;
+                padding: 0.85rem 1.2rem;
                 color: white;
                 cursor: pointer;
-                border-bottom: 1px solid rgba(255,255,255,0.1);
-                transition: background 0.2s;
+                border-bottom: 1px solid rgba(255,255,255,0.06);
+                transition: background 0.15s;
+                font-size: 0.95rem;
             }
             .autocomplete-item:hover {
-                background: rgba(255,0,0,0.2);
+                background: rgba(255,0,0,0.15);
             }
             .autocomplete-item:last-child {
                 border-bottom: none;
             }
             .dni-input {
                 width: 100%;
-                padding: 1rem;
-                border-radius: 12px;
-                border: 1px solid rgba(255,255,255,0.2);
-                background: rgba(255,255,255,0.1);
+                padding: 1rem 1.2rem;
+                border-radius: 14px;
+                border: 1px solid rgba(255,255,255,0.15);
+                background: rgba(255,255,255,0.08);
                 color: white;
                 font-size: 1rem;
                 outline: none;
                 margin-bottom: 1rem;
-                transition: border-color 0.2s;
+                transition: border-color 0.2s, box-shadow 0.2s;
+                box-sizing: border-box;
             }
             .dni-input:focus {
                 border-color: #FF0000;
+                box-shadow: 0 0 0 3px rgba(255,0,0,0.15);
             }
             .dni-input::placeholder {
-                color: #888;
+                color: #666;
             }
             .btn-enter {
                 width: 100%;
                 padding: 1rem;
-                border-radius: 12px;
+                border-radius: 14px;
                 border: none;
-                background: #FF0000;
+                background: linear-gradient(135deg, #FF0000, #CC0000);
                 color: white;
                 font-size: 1rem;
-                font-weight: bold;
+                font-weight: 700;
                 cursor: pointer;
-                transition: background 0.2s;
+                transition: transform 0.15s, box-shadow 0.15s;
+                box-shadow: 0 4px 15px rgba(255,0,0,0.3);
+                letter-spacing: 0.5px;
             }
             .btn-enter:hover {
-                background: #CC0000;
+                transform: translateY(-1px);
+                box-shadow: 0 6px 20px rgba(255,0,0,0.4);
+            }
+            .btn-enter:active {
+                transform: translateY(0);
             }
             .btn-enter:disabled {
-                opacity: 0.5;
+                opacity: 0.4;
                 cursor: not-allowed;
+                transform: none;
+                box-shadow: none;
             }
             .error-msg {
                 color: #FF6B6B;
                 margin-top: 1rem;
                 display: none;
+                font-size: 0.9rem;
             }
             .error-msg.show {
                 display: block;
             }
             .selected-socio {
-                background: rgba(255,0,0,0.1);
-                border: 1px solid rgba(255,0,0,0.3);
-                border-radius: 12px;
-                padding: 1rem;
+                background: rgba(255,0,0,0.08);
+                border: 1px solid rgba(255,0,0,0.25);
+                border-radius: 14px;
+                padding: 1rem 1.2rem;
                 margin-bottom: 1rem;
                 display: flex;
                 align-items: center;
@@ -144,14 +161,19 @@
             }
             .selected-socio span {
                 color: white;
-                font-weight: 500;
+                font-weight: 600;
+                font-size: 1rem;
             }
             .selected-socio button {
                 background: none;
                 border: none;
-                color: #888;
+                color: #666;
                 cursor: pointer;
-                font-size: 1.2rem;
+                font-size: 1.3rem;
+                transition: color 0.2s;
+            }
+            .selected-socio button:hover {
+                color: #FF0000;
             }
             .rutinas-list {
                 display: none;
@@ -159,80 +181,130 @@
             .rutinas-list.show {
                 display: block;
             }
-            .rutina-item {
-                background: rgba(255,255,255,0.05);
-                border: 1px solid rgba(255,255,255,0.1);
-                border-radius: 12px;
-                padding: 1.5rem;
-                margin-bottom: 1rem;
-            }
-            .rutina-header {
-                display: flex;
-                align-items: center;
-                gap: 0.75rem;
-                margin-bottom: 0.75rem;
-            }
-            .rutina-tipo {
-                padding: 0.25rem 0.75rem;
-                border-radius: 20px;
-                font-size: 0.75rem;
-                font-weight: bold;
-                text-transform: uppercase;
-            }
             .tipo-crossfit {
-                background: rgba(255,0,0,0.2);
+                background: rgba(255,0,0,0.15);
                 color: #FF6B6B;
             }
             .tipo-musculacion {
-                background: rgba(0,150,255,0.2);
+                background: rgba(0,150,255,0.15);
                 color: #6BB3FF;
             }
-            .rutina-titulo {
+
+            /* Welcome Message */
+            .welcome-msg {
                 color: white;
-                font-size: 1.1rem;
-                font-weight: bold;
-            }
-            .rutina-contenido {
-                color: #ccc;
-                white-space: pre-wrap;
-                line-height: 1.6;
-            }
-            .rutina-footer {
-                margin-top: 1rem;
+                margin-bottom: 1.5rem;
+                padding: 1.2rem 1.5rem;
+                background: rgba(255,255,255,0.05);
+                border: 1px solid rgba(255,255,255,0.08);
+                border-radius: 16px;
                 display: flex;
-                align-items: center;
+                align-items: flex-start;
                 justify-content: space-between;
-                color: #888;
+                gap: 1rem;
+            }
+            .welcome-msg .welcome-text {
+                flex: 1;
+            }
+            .welcome-msg .welcome-name {
+                font-size: 1.15rem;
+                font-weight: 700;
+                display: block;
+                margin-bottom: 0.3rem;
+            }
+            .welcome-msg .welcome-profe {
                 font-size: 0.85rem;
+                color: #999;
+                display: block;
+                margin-bottom: 0.15rem;
+            }
+            .welcome-msg .welcome-dia {
+                font-size: 0.8rem;
+                color: #777;
+                display: block;
             }
             .logout-btn {
                 background: none;
-                border: 1px solid rgba(255,255,255,0.2);
-                color: #aaa;
-                padding: 0.5rem 1rem;
-                border-radius: 8px;
+                border: 1px solid rgba(255,255,255,0.15);
+                color: #888;
+                padding: 0.5rem 1.2rem;
+                border-radius: 10px;
                 cursor: pointer;
-                font-size: 0.9rem;
+                font-size: 0.85rem;
+                font-weight: 500;
                 transition: all 0.2s;
+                white-space: nowrap;
+                flex-shrink: 0;
+                margin-top: 0.2rem;
             }
             .logout-btn:hover {
                 border-color: #FF0000;
                 color: #FF0000;
+                background: rgba(255,0,0,0.08);
             }
-            .welcome-msg {
-                color: white;
-                margin-bottom: 1.5rem;
-                padding: 1rem;
-                background: rgba(255,0,0,0.1);
-                border-radius: 12px;
+
+            /* Accordion Cards */
+            .rutina-card {
+                background: rgba(255,255,255,0.04);
+                border: 1px solid rgba(255,255,255,0.08);
+                border-radius: 14px;
+                margin-bottom: 0.75rem;
+                overflow: hidden;
+                transition: border-color 0.2s;
+            }
+            .rutina-card:hover {
+                border-color: rgba(255,255,255,0.15);
+            }
+            .rutina-card-header {
                 display: flex;
                 align-items: center;
-                justify-content: space-between;
+                gap: 0.6rem;
+                padding: 1rem 1.2rem;
+                cursor: pointer;
+                transition: background 0.2s;
+                user-select: none;
+            }
+            .rutina-card-header:hover {
+                background: rgba(255,255,255,0.04);
+            }
+            .rutina-card-tipo {
+                padding: 0.25rem 0.7rem;
+                border-radius: 20px;
+                font-size: 0.7rem;
+                font-weight: 700;
+                text-transform: uppercase;
+                letter-spacing: 0.5px;
+            }
+            .rutina-card-profesor {
+                color: #999;
+                font-size: 0.85rem;
+                flex: 1;
+            }
+            .rutina-card-toggle {
+                color: #555;
+                font-size: 0.75rem;
+                transition: transform 0.25s;
+            }
+            .rutina-card.open .rutina-card-toggle {
+                transform: rotate(180deg);
+            }
+            .rutina-card-body {
+                display: none;
+                padding: 0 1.2rem 1.2rem;
+            }
+            .rutina-card.open .rutina-card-body {
+                display: block;
+            }
+            .legacy-content {
+                color: #ccc;
+                white-space: pre-wrap;
+                line-height: 1.7;
+                font-size: 0.95rem;
             }
             .no-rutinas {
                 text-align: center;
                 padding: 3rem;
-                color: #888;
+                color: #666;
             }
             .no-rutinas i {
                 font-size: 3rem;
@@ -240,99 +312,39 @@
                 display: block;
             }
 
-            /* Weekly View Styles */
-            .weekly-view {
-                display: none;
-            }
-            .weekly-view.show {
-                display: block;
-            }
-            .day-tabs {
-                display: flex;
-                gap: 0.5rem;
-                overflow-x: auto;
-                padding: 0.5rem 0;
-                margin-bottom: 1.5rem;
-                -webkit-overflow-scrolling: touch;
-                scrollbar-width: none;
-            }
-            .day-tabs::-webkit-scrollbar {
-                display: none;
-            }
-            .day-tab {
-                padding: 0.75rem 1rem;
-                border-radius: 12px;
-                border: 1px solid rgba(255,255,255,0.15);
-                background: rgba(255,255,255,0.05);
-                color: #aaa;
-                cursor: pointer;
-                font-size: 0.9rem;
-                font-weight: 500;
-                white-space: nowrap;
-                transition: all 0.2s;
-                min-width: fit-content;
-            }
-            .day-tab:hover {
-                background: rgba(255,0,0,0.1);
-                border-color: rgba(255,0,0,0.3);
-            }
-            .day-tab.active {
-                background: #FF0000;
-                color: white;
-                border-color: #FF0000;
-            }
-            .day-tab.has-routines {
-                position: relative;
-            }
-            .day-tab.has-routines::after {
-                content: '';
-                position: absolute;
-                bottom: 4px;
-                left: 50%;
-                transform: translateX(-50%);
-                width: 6px;
-                height: 6px;
-                background: #4CAF50;
-                border-radius: 50%;
-            }
-            .day-tab.active.has-routines::after {
-                background: white;
-            }
-            .day-content {
-                display: none;
-            }
-            .day-content.active {
-                display: block;
-            }
+            /* Section inside accordion */
             .routine-section {
-                background: rgba(255,255,255,0.05);
-                border: 1px solid rgba(255,255,255,0.1);
+                background: rgba(255,255,255,0.03);
+                border: 1px solid rgba(255,255,255,0.06);
                 border-radius: 12px;
-                padding: 1.25rem;
-                margin-bottom: 1rem;
+                padding: 1rem;
+                margin-bottom: 0.75rem;
+            }
+            .routine-section:last-child {
+                margin-bottom: 0;
             }
             .section-header {
                 display: flex;
                 align-items: center;
                 gap: 0.5rem;
-                margin-bottom: 1rem;
-                padding-bottom: 0.75rem;
-                border-bottom: 1px solid rgba(255,255,255,0.1);
+                margin-bottom: 0.75rem;
+                padding-bottom: 0.6rem;
+                border-bottom: 1px solid rgba(255,255,255,0.06);
             }
             .section-icon {
-                font-size: 1.2rem;
+                font-size: 1.1rem;
             }
             .section-title {
                 color: white;
-                font-size: 1rem;
+                font-size: 0.95rem;
                 font-weight: 600;
             }
             .exercise-entry {
                 display: flex;
                 align-items: flex-start;
-                gap: 1rem;
-                padding: 0.75rem 0;
-                border-bottom: 1px solid rgba(255,255,255,0.05);
+                gap: 0.75rem;
+                padding: 0.6rem 0;
+                border-bottom: 1px solid rgba(255,255,255,0.04);
             }
             .exercise-entry:last-child {
                 border-bottom: none;
@@ -342,25 +354,26 @@
                 flex: 1;
             }
             .exercise-name {
-                color: white;
+                color: #eee;
                 font-weight: 500;
-                margin-bottom: 0.25rem;
+                font-size: 0.95rem;
+                margin-bottom: 0.15rem;
             }
             .exercise-reps {
                 color: #FF6B6B;
-                font-size: 0.9rem;
-                font-weight: 500;
+                font-size: 0.85rem;
+                font-weight: 600;
             }
             .exercise-notes {
-                color: #888;
-                font-size: 0.85rem;
-                margin-top: 0.25rem;
+                color: #777;
+                font-size: 0.8rem;
+                margin-top: 0.15rem;
             }
             .exercise-media {
                 flex-shrink: 0;
-                width: 80px;
-                height: 80px;
-                border-radius: 8px;
+                width: 70px;
+                height: 70px;
+                border-radius: 10px;
                 overflow: hidden;
                 background: rgba(0,0,0,0.3);
             }
@@ -373,62 +386,6 @@
                 width: 100%;
                 height: 100%;
                 border: none;
-            }
-            .rutina-card {
-                background: rgba(255,255,255,0.03);
-                border: 1px solid rgba(255,255,255,0.08);
-                border-radius: 10px;
-                margin-bottom: 0.75rem;
-                overflow: hidden;
-            }
-            .rutina-card-header {
-                display: flex;
-                align-items: center;
-                gap: 0.5rem;
-                padding: 1rem;
-                cursor: pointer;
-                transition: background 0.2s;
-                user-select: none;
-            }
-            .rutina-card-header:hover {
-                background: rgba(255,255,255,0.05);
-            }
-            .rutina-card-tipo {
-                padding: 0.2rem 0.6rem;
-                border-radius: 15px;
-                font-size: 0.7rem;
-                font-weight: bold;
-                text-transform: uppercase;
-            }
-            .rutina-card-title {
-                color: white;
-                font-size: 0.95rem;
-                font-weight: 600;
-                flex: 1;
-            }
-            .rutina-card-profesor {
-                color: #aaa;
-                font-size: 0.8rem;
-            }
-            .rutina-card-toggle {
-                color: #666;
-                font-size: 0.8rem;
-                transition: transform 0.2s;
-            }
-            .rutina-card.open .rutina-card-toggle {
-                transform: rotate(180deg);
-            }
-            .rutina-card-body {
-                display: none;
-                padding: 0 1rem 1rem;
-            }
-            .rutina-card.open .rutina-card-body {
-                display: block;
-            }
-            .legacy-content {
-                color: #ccc;
-                white-space: pre-wrap;
-                line-height: 1.6;
             }
         </style>
     </head>
@@ -509,10 +466,10 @@
             <!-- Lista de Rutinas -->
             <div id="rutinas-section" class="rutinas-list">
                 <div id="welcome-msg" class="welcome-msg">
-                    <div>
-                        <span>Hola, <strong id="user-name"></strong> 👋</span>
-                        <div id="profe-info" style="font-size:0.85rem;color:#aaa;margin-top:0.25rem;"></div>
-                        <div id="dia-info" style="font-size:0.8rem;color:#888;margin-top:0.15rem;"></div>
+                    <div class="welcome-text">
+                        <span class="welcome-name">Hola, <strong id="user-name"></strong> 👋</span>
+                        <span id="profe-info" class="welcome-profe"></span>
+                        <span id="dia-info" class="welcome-dia"></span>
                     </div>
                     <button id="logout-btn" class="logout-btn">Salir</button>
                 </div>
