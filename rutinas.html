@@ -725,8 +725,29 @@
 
             // Show professor and check-in time
             const profeInfo = document.getElementById('profe-info');
-            const savedProfesor = localStorage.getItem('bdt_profesor');
-            const savedCheckin = localStorage.getItem('bdt_checkin');
+            let savedProfesor = localStorage.getItem('bdt_profesor');
+            let savedCheckin = localStorage.getItem('bdt_checkin');
+
+            // If not in localStorage, fetch from API using token
+            if (!savedProfesor && token) {
+                try {
+                    const infoRes = await fetch(`${API_BASE}/session-info?token=${token}`);
+                    if (infoRes.ok) {
+                        const infoData = await infoRes.json();
+                        if (infoData.profesor) {
+                            localStorage.setItem('bdt_profesor', JSON.stringify(infoData.profesor));
+                            savedProfesor = JSON.stringify(infoData.profesor);
+                        }
+                        if (infoData.checkInTime) {
+                            localStorage.setItem('bdt_checkin', infoData.checkInTime);
+                            savedCheckin = infoData.checkInTime;
+                        }
+                    }
+                } catch (e) {
+                    console.log('Could not fetch session info');
+                }
+            }
+
             if (savedProfesor && savedCheckin) {
                 const prof = JSON.parse(savedProfesor);
                 const checkin = new Date(savedCheckin);
