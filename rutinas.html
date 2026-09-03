@@ -494,6 +494,7 @@
                     <div>
                         <span>Hola, <strong id="user-name"></strong> 👋</span>
                         <div id="profe-info" style="font-size:0.85rem;color:#aaa;margin-top:0.25rem;"></div>
+                        <div id="dia-info" style="font-size:0.8rem;color:#888;margin-top:0.15rem;"></div>
                     </div>
                     <button id="logout-btn" class="logout-btn">Salir</button>
                 </div>
@@ -706,7 +707,6 @@
                 localStorage.setItem('bdt_user', JSON.stringify(data.socio));
                 localStorage.setItem('bdt_tipos', JSON.stringify(data.tiposAcceso || []));
                 if (data.profesor) localStorage.setItem('bdt_profesor', JSON.stringify(data.profesor));
-                if (data.checkInTime) localStorage.setItem('bdt_checkin', data.checkInTime);
                 showRutinas(data.token, data.socio.nombre, data.tiposAcceso || []);
 
             } catch (error) {
@@ -723,10 +723,15 @@
             rutinasSection.classList.add('show');
             userName.textContent = nombre;
 
-            // Show professor and check-in time
+            // Show today's day name
+            const diaInfo = document.getElementById('dia-info');
+            const dias = ['Domingo', 'Lunes', 'Martes', 'Miércoles', 'Jueves', 'Viernes', 'Sábado'];
+            const hoy = new Date();
+            diaInfo.innerHTML = `📅 ${dias[hoy.getDay()]}, ${hoy.getDate()}/${hoy.getMonth() + 1}`;
+
+            // Show professor name and work schedule
             const profeInfo = document.getElementById('profe-info');
             let savedProfesor = localStorage.getItem('bdt_profesor');
-            let savedCheckin = localStorage.getItem('bdt_checkin');
 
             // If not in localStorage, fetch from API using token
             if (!savedProfesor && token) {
@@ -738,24 +743,19 @@
                             localStorage.setItem('bdt_profesor', JSON.stringify(infoData.profesor));
                             savedProfesor = JSON.stringify(infoData.profesor);
                         }
-                        if (infoData.checkInTime) {
-                            localStorage.setItem('bdt_checkin', infoData.checkInTime);
-                            savedCheckin = infoData.checkInTime;
-                        }
                     }
                 } catch (e) {
                     console.log('Could not fetch session info');
                 }
             }
 
-            if (savedProfesor && savedCheckin) {
+            if (savedProfesor) {
                 const prof = JSON.parse(savedProfesor);
-                const checkin = new Date(savedCheckin);
-                const hora = checkin.toLocaleTimeString('es-AR', { hour: '2-digit', minute: '2-digit' });
-                profeInfo.innerHTML = `<i class="bi bi-person-badge"></i> Profe: <strong>${prof.nombre}</strong> · Ingreso: <strong>${hora}</strong>`;
-            } else if (savedProfesor) {
-                const prof = JSON.parse(savedProfesor);
-                profeInfo.innerHTML = `<i class="bi bi-person-badge"></i> Profe: <strong>${prof.nombre}</strong>`;
+                let info = `<i class="bi bi-person-badge"></i> Profe: <strong>${prof.nombre}</strong>`;
+                if (prof.horario) {
+                    info += ` · Horario: <strong>${prof.horario}</strong>`;
+                }
+                profeInfo.innerHTML = info;
             } else {
                 profeInfo.innerHTML = '';
             }
@@ -810,10 +810,15 @@
             }
         }
 
-        // Renderizar vista semanal
+        // Renderizar vista semanal — SOLO el día de hoy
         function renderWeeklyView(data, tiposAcceso) {
             weeklyView.classList.add('show');
             rutinasContainer.style.display = 'none';
+
+            // Get today's key
+            const today = new Date().getDay();
+            const todayKey = today === 0 ? 'domingo' : DIAS_SEMANA[today === 0 ? 5 : today - 1].key;
+            const todayLabel = today === 0 ? 'Domingo' : DIAS_SEMANA[today === 0 ? 5 : today - 1].label;
 
             // Group routines by day
             const byDay = {};
@@ -821,10 +826,8 @@
 
             if (Array.isArray(data)) {
                 data.forEach(rutina => {
-                    // Filter by access type if needed
                     if (tiposAcceso.length > 0 && !tiposAcceso.includes(rutina.tipo)) return;
 
-                    // Check contenidoJson for day keys
                     let contenido;
                     try {
                         contenido = typeof rutina.contenidoJson === 'string'
@@ -834,81 +837,42 @@
 
                     if (!contenido || typeof contenido !== 'object') return;
 
-                    // Add routine to each day it contains exercises for
-                    for (const dayKey of Object.keys(byDay)) {
-                        const dayData = contenido[dayKey];
-                        if (dayData && typeof dayData === 'object') {
-                            // Check if any section has exercises
-                            const hasExercises = Object.values(dayData).some(
-                                v => Array.isArray(v) && v.length > 0
-                            );
-                            if (hasExercises) {
-                                byDay[dayKey].push({ ...rutina, _dayContent: dayData });
-                            }
+                    // Only process today's content
+                    const dayData = contenido[todayKey];
+                    if (dayData && typeof dayData === 'object') {
+                        const hasExercises = Object.values(dayData).some(
+                            v => Array.isArray(v) && v.length > 0
+                        );
+                        if (hasExercises) {
+                            byDay[todayKey].push({ ...rutina, _dayContent: dayData });
                         }
                     }
                 });
             }
 
-            // Render tabs
-            const today = new Date().getDay(); // 0=Sunday, 1=Monday...
-            const todayIndex = today === 0 ? 5 : today - 1; // Map to 0-5 (Mon-Sat)
+            // Hide day tabs — only show today
+            dayTabsContainer.innerHTML = '';
 
-            dayTabsContainer.innerHTML = DIAS_SEMANA.map((d, i) => {
-                const hasRoutines = byDay[d.key].length > 0;
-                const isActive = i === todayIndex || (i === 0 && !byDay[DIAS_SEMANA[todayIndex].key].length);
-                return `<button class="day-tab ${hasRoutines ? 'has-routines' : ''} ${isActive ? 'active' : ''}" data-day="${d.key}">
-                    <span class="day-tab-full">${d.label}</span>
-                    <span class="day-tab-short">${d.short}</span>
-                </button>`;
-            }).join('');
-
-            // Render day contents
-            dayContentContainer.innerHTML = DIAS_SEMANA.map((d, i) => {
-                const routines = byDay[d.key];
-                const isActive = i === todayIndex || (i === 0 && !byDay[DIAS_SEMANA[todayIndex].key].length);
-                
-                let content = '';
-                if (routines.length === 0) {
-                    content = `<div class="no-rutinas">
-                        <i class="bi bi-calendar-x"></i>
-                        <p>No hay rutinas para ${d.label}</p>
-                    </div>`;
-                } else {
-                    content = routines.map(r => renderStructuredRutina(r)).join('');
-                }
-
-                return `<div class="day-content ${isActive ? 'active' : ''}" data-day="${d.key}">
-                    ${content}
+            // Render only today's content
+            const routines = byDay[todayKey];
+            let content = '';
+            if (routines.length === 0) {
+                content = `<div class="no-rutinas">
+                    <i class="bi bi-calendar-x"></i>
+                    <p>No hay rutinas para hoy</p>
                 </div>`;
-            }).join('');
-
-            // Set initial active day
-            const initialActive = document.querySelector('.day-tab.active');
-            if (initialActive) {
-                activeDay = initialActive.dataset.day;
+            } else {
+                content = routines.map(r => renderStructuredRutina(r)).join('');
             }
 
-            // Tab click handlers
-            dayTabsContainer.addEventListener('click', (e) => {
-                const tab = e.target.closest('.day-tab');
-                if (!tab) return;
+            dayContentContainer.innerHTML = `<div class="day-content active" data-day="${todayKey}">
+                ${content}
+            </div>`;
 
-                // Update active tab
-                document.querySelectorAll('.day-tab').forEach(t => t.classList.remove('active'));
-                tab.classList.add('active');
-
-                // Update active content
-                const day = tab.dataset.day;
-                document.querySelectorAll('.day-content').forEach(c => c.classList.remove('active'));
-                document.querySelector(`.day-content[data-day="${day}"]`).classList.add('active');
-                
-                activeDay = day;
-            });
-
-            // Handle responsive tab labels
-            updateTabLabels();
-            window.addEventListener('resize', updateTabLabels);
+            // Hide weekly view tabs completely
+            weeklyView.classList.remove('show');
+            rutinasContainer.style.display = 'block';
+            rutinasContainer.innerHTML = content;
         }
 
         // Update tab labels based on screen width
@@ -1161,7 +1125,6 @@
             localStorage.removeItem('bdt_user');
             localStorage.removeItem('bdt_tipos');
             localStorage.removeItem('bdt_profesor');
-            localStorage.removeItem('bdt_checkin');
             selectedSocio = null;
             weeklyData = null;
             activeDay = null;
