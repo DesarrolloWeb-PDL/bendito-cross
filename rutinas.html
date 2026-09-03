@@ -378,14 +378,20 @@
                 background: rgba(255,255,255,0.03);
                 border: 1px solid rgba(255,255,255,0.08);
                 border-radius: 10px;
-                padding: 1rem;
-                margin-bottom: 1rem;
+                margin-bottom: 0.75rem;
+                overflow: hidden;
             }
             .rutina-card-header {
                 display: flex;
                 align-items: center;
                 gap: 0.5rem;
-                margin-bottom: 0.75rem;
+                padding: 1rem;
+                cursor: pointer;
+                transition: background 0.2s;
+                user-select: none;
+            }
+            .rutina-card-header:hover {
+                background: rgba(255,255,255,0.05);
             }
             .rutina-card-tipo {
                 padding: 0.2rem 0.6rem;
@@ -396,16 +402,28 @@
             }
             .rutina-card-title {
                 color: white;
-                font-size: 1rem;
+                font-size: 0.95rem;
                 font-weight: 600;
+                flex: 1;
             }
-            .rutina-card-footer {
-                margin-top: 0.75rem;
-                display: flex;
-                align-items: center;
-                justify-content: space-between;
+            .rutina-card-profesor {
+                color: #aaa;
+                font-size: 0.8rem;
+            }
+            .rutina-card-toggle {
                 color: #666;
                 font-size: 0.8rem;
+                transition: transform 0.2s;
+            }
+            .rutina-card.open .rutina-card-toggle {
+                transform: rotate(180deg);
+            }
+            .rutina-card-body {
+                display: none;
+                padding: 0 1rem 1rem;
+            }
+            .rutina-card.open .rutina-card-body {
+                display: block;
             }
             .legacy-content {
                 color: #ccc;
@@ -725,9 +743,10 @@
 
             // Show today's day name
             const diaInfo = document.getElementById('dia-info');
+            const meses = ['Enero', 'Febrero', 'Marzo', 'Abril', 'Mayo', 'Junio', 'Julio', 'Agosto', 'Septiembre', 'Octubre', 'Noviembre', 'Diciembre'];
             const dias = ['Domingo', 'Lunes', 'Martes', 'Miércoles', 'Jueves', 'Viernes', 'Sábado'];
             const hoy = new Date();
-            diaInfo.innerHTML = `📅 ${dias[hoy.getDay()]}, ${hoy.getDate()}/${hoy.getMonth() + 1}`;
+            diaInfo.innerHTML = `📅 Rutina del día — ${dias[hoy.getDay()]} ${hoy.getDate()} de ${meses[hoy.getMonth()]}`;
 
             // Show professor name and work schedule
             const profeInfo = document.getElementById('profe-info');
@@ -900,10 +919,12 @@
             return renderLegacyRutina(rutina);
         }
 
-        // Renderizar contenido de un día específico
+        // Renderizar contenido de un día específico — accordion
         function renderStructuredContentForDay(rutina, dayContent) {
             const tipoClass = rutina.tipo === 'crossfit' ? 'tipo-crossfit' : 'tipo-musculacion';
             const tipoIcon = rutina.tipo === 'crossfit' ? '🔥' : '💪';
+            const tipoLabel = rutina.tipo === 'crossfit' ? 'CROSSFIT' : 'MUSCULACIÓN';
+            const profesorNombre = rutina.profesor?.nombre || '';
 
             // Section configs differ by type
             const isCrossfit = rutina.tipo === 'crossfit';
@@ -923,13 +944,10 @@
                   ];
 
             let sectionsHtml = '';
-
             for (const config of sections) {
                 const exercises = dayContent[config.key];
                 if (!exercises || !Array.isArray(exercises) || exercises.length === 0) continue;
-
                 const exercisesHtml = exercises.map(ex => renderExerciseEntry(ex)).join('');
-
                 sectionsHtml += `
                     <div class="routine-section">
                         <div class="section-header">
@@ -942,21 +960,20 @@
             }
 
             return `
-                <div class="rutina-card">
+                <div class="rutina-card" onclick="this.classList.toggle('open')">
                     <div class="rutina-card-header">
-                        <span class="rutina-card-tipo ${tipoClass}">${tipoIcon} ${rutina.tipo}</span>
-                        <span class="rutina-card-title">${rutina.titulo}</span>
+                        <span class="rutina-card-tipo ${tipoClass}">${tipoIcon} ${tipoLabel}</span>
+                        <span class="rutina-card-profesor">por ${profesorNombre}</span>
+                        <span class="rutina-card-toggle">▼</span>
                     </div>
-                    ${sectionsHtml}
-                    <div class="rutina-card-footer">
-                        <span>Por: ${rutina.profesor?.nombre || 'N/A'}</span>
-                        ${rutina.nivel ? `<span>Nivel: ${rutina.nivel}</span>` : ''}
+                    <div class="rutina-card-body">
+                        ${sectionsHtml}
                     </div>
                 </div>
             `;
         }
 
-        // Renderizar contenido estructurado
+        // Renderizar contenido estructurado — accordion
         function renderStructuredContent(rutina) {
             let contenido;
             try {
@@ -969,19 +986,31 @@
 
             const tipoClass = rutina.tipo === 'crossfit' ? 'tipo-crossfit' : 'tipo-musculacion';
             const tipoIcon = rutina.tipo === 'crossfit' ? '🔥' : '💪';
+            const tipoLabel = rutina.tipo === 'crossfit' ? 'CROSSFIT' : 'MUSCULACIÓN';
+            const profesorNombre = rutina.profesor?.nombre || '';
 
             let sectionsHtml = '';
-            
-            // Process each section
-            const sectionOrder = ['activacion', 'entrada_en_calor', 'trabajos_del_dia', 'wod_del_dia'];
+            const sectionOrder = ['activacion', 'entrada_calor', 'trabajos_dia', 'wod_dia', 'superiores', 'zona_media', 'inferiores'];
             
             sectionOrder.forEach(sectionKey => {
                 const exercises = contenido[sectionKey];
                 if (!exercises || !Array.isArray(exercises) || exercises.length === 0) return;
 
-                const icon = SECTION_ICONS[sectionKey] || '📋';
-                const label = SECTION_LABELS[sectionKey] || sectionKey;
+                const SECTION_ICONS_LOCAL: Record<string, string> = {
+                    'activacion': '🔥', 'entrada_calor': '🏃', 'entrada_en_calor': '🏃',
+                    'trabajos_dia': '💪', 'trabajos_del_dia': '💪',
+                    'wod_dia': '⚡', 'wod_del_dia': '⚡',
+                    'superiores': '💪', 'zona_media': '🏋️', 'inferiores': '🦵'
+                };
+                const SECTION_LABELS_LOCAL: Record<string, string> = {
+                    'activacion': 'Activación', 'entrada_calor': 'Entrada en calor', 'entrada_en_calor': 'Entrada en calor',
+                    'trabajos_dia': 'Trabajos del día', 'trabajos_del_dia': 'Trabajos del día',
+                    'wod_dia': 'WOD del día', 'wod_del_dia': 'WOD del día',
+                    'superiores': 'Superiores', 'zona_media': 'Zona Media', 'inferiores': 'Inferiores'
+                };
 
+                const icon = SECTION_ICONS_LOCAL[sectionKey] || '📋';
+                const label = SECTION_LABELS_LOCAL[sectionKey] || sectionKey.replace(/_/g, ' ');
                 const exercisesHtml = exercises.map(ex => renderExerciseEntry(ex)).join('');
 
                 sectionsHtml += `
@@ -995,41 +1024,15 @@
                 `;
             });
 
-            // If no sections rendered, check for other keys
-            if (!sectionsHtml) {
-                // Try to render any content as sections
-                const keys = Object.keys(contenido);
-                keys.forEach(key => {
-                    const exercises = contenido[key];
-                    if (!Array.isArray(exercises) || exercises.length === 0) return;
-
-                    const icon = SECTION_ICONS[key] || '📋';
-                    const label = SECTION_LABELS[key] || key.replace(/_/g, ' ').replace(/\b\w/g, l => l.toUpperCase());
-
-                    const exercisesHtml = exercises.map(ex => renderExerciseEntry(ex)).join('');
-
-                    sectionsHtml += `
-                        <div class="routine-section">
-                            <div class="section-header">
-                                <span class="section-icon">${icon}</span>
-                                <span class="section-title">${label}</span>
-                            </div>
-                            ${exercisesHtml}
-                        </div>
-                    `;
-                });
-            }
-
             return `
-                <div class="rutina-card">
+                <div class="rutina-card" onclick="this.classList.toggle('open')">
                     <div class="rutina-card-header">
-                        <span class="rutina-card-tipo ${tipoClass}">${tipoIcon} ${rutina.tipo}</span>
-                        <span class="rutina-card-title">${rutina.titulo}</span>
+                        <span class="rutina-card-tipo ${tipoClass}">${tipoIcon} ${tipoLabel}</span>
+                        <span class="rutina-card-profesor">por ${profesorNombre}</span>
+                        <span class="rutina-card-toggle">▼</span>
                     </div>
-                    ${sectionsHtml}
-                    <div class="rutina-card-footer">
-                        <span>Por: ${rutina.profesor?.nombre || 'N/A'}</span>
-                        ${rutina.nivel ? `<span>Nivel: ${rutina.nivel}</span>` : ''}
+                    <div class="rutina-card-body">
+                        ${sectionsHtml}
                     </div>
                 </div>
             `;
@@ -1097,23 +1100,22 @@
             return null;
         }
 
-        // Renderizar rutina legacy (texto plano)
+        // Renderizar rutina legacy (texto plano) — accordion
         function renderLegacyRutina(rutina) {
             const tipoClass = rutina.tipo === 'crossfit' ? 'tipo-crossfit' : 'tipo-musculacion';
             const tipoIcon = rutina.tipo === 'crossfit' ? '🔥' : '💪';
+            const tipoLabel = rutina.tipo === 'crossfit' ? 'CROSSFIT' : 'MUSCULACIÓN';
+            const profesorNombre = rutina.profesor?.nombre || '';
 
             return `
-                <div class="rutina-item">
-                    <div class="rutina-header">
-                        <span class="rutina-tipo ${tipoClass}">
-                            ${tipoIcon} ${rutina.tipo === 'crossfit' ? 'CrossFit' : 'Musculación'}
-                        </span>
-                        <span class="rutina-titulo">${rutina.titulo}</span>
+                <div class="rutina-card" onclick="this.classList.toggle('open')">
+                    <div class="rutina-card-header">
+                        <span class="rutina-card-tipo ${tipoClass}">${tipoIcon} ${tipoLabel}</span>
+                        <span class="rutina-card-profesor">por ${profesorNombre}</span>
+                        <span class="rutina-card-toggle">▼</span>
                     </div>
-                    <div class="rutina-contenido">${rutina.contenido || ''}</div>
-                    <div class="rutina-footer">
-                        <span>Por: ${rutina.profesor?.nombre || 'N/A'}</span>
-                        ${rutina.nivel ? `<span>Nivel: ${rutina.nivel}</span>` : ''}
+                    <div class="rutina-card-body">
+                        <div class="legacy-content">${rutina.contenido || ''}</div>
                     </div>
                 </div>
             `;
