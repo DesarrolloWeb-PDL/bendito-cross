@@ -1078,27 +1078,41 @@
             `;
         }
 
-        // Logout
-        logoutBtn.addEventListener('click', () => {
+        // Limpiar toda la cache de la app
+        async function clearAllCache() {
+            // Clear localStorage
             localStorage.removeItem('bdt_token');
             localStorage.removeItem('bdt_user');
             localStorage.removeItem('bdt_tipos');
             localStorage.removeItem('bdt_profesor');
-            selectedSocio = null;
-            weeklyData = null;
-            activeDay = null;
-            searchInput.value = '';
-            dniInput.value = '';
-            loginSection.style.display = 'block';
-            rutinasSection.classList.remove('show');
-            weeklyView.classList.remove('show');
-            rutinasContainer.style.display = '';
-            searchSection.style.display = 'block';
-            dniSection.style.display = 'none';
-            enterBtn.disabled = true;
-            enterBtn.innerHTML = '<i class="bi bi-box-arrow-in-right"></i> INGRESAR';
-            dayTabsContainer.innerHTML = '';
-            dayContentContainer.innerHTML = '';
+            localStorage.clear();
+            // Clear all service worker caches
+            if ('caches' in window) {
+                const names = await caches.keys();
+                await Promise.all(names.map(n => caches.delete(n)));
+            }
+            // Unregister service worker
+            if ('serviceWorker' in navigator) {
+                const regs = await navigator.serviceWorker.getRegistrations();
+                await Promise.all(regs.map(r => r.unregister()));
+            }
+        }
+
+        // Verificar si el token expiró (payload JWT tiene exp en ms)
+        function isTokenExpired(token) {
+            try {
+                const [data] = token.split('.');
+                const payload = JSON.parse(atob(data));
+                return payload.exp < Date.now();
+            } catch {
+                return true;
+            }
+        }
+
+        // Logout → limpiar todo y volver al inicio
+        logoutBtn.addEventListener('click', async () => {
+            await clearAllCache();
+            window.location.href = 'index.html';
         });
 
         // Verificar si ya hay sesión
@@ -1106,9 +1120,15 @@
         const savedUser = localStorage.getItem('bdt_user');
         const savedTipos = localStorage.getItem('bdt_tipos');
         if (savedToken && savedUser) {
-            const user = JSON.parse(savedUser);
-            const tipos = savedTipos ? JSON.parse(savedTipos) : [];
-            showRutinas(savedToken, user.nombre, tipos);
+            // Si el token expiró, limpiar y volver al inicio
+            if (isTokenExpired(savedToken)) {
+                await clearAllCache();
+                window.location.href = 'index.html';
+            } else {
+                const user = JSON.parse(savedUser);
+                const tipos = savedTipos ? JSON.parse(savedTipos) : [];
+                showRutinas(savedToken, user.nombre, tipos);
+            }
         }
     </script>
 </body>
