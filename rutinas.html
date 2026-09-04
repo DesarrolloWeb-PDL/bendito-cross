@@ -1122,8 +1122,7 @@
         if (savedToken && savedUser) {
             // Si el token expiró, limpiar y volver al inicio
             if (isTokenExpired(savedToken)) {
-                await clearAllCache();
-                window.location.href = 'index.html';
+                clearAllCache().then(() => { window.location.href = 'index.html'; });
             } else {
                 const user = JSON.parse(savedUser);
                 const tipos = savedTipos ? JSON.parse(savedTipos) : [];
