@@ -880,7 +880,7 @@
         function renderStructuredContentForDay(rutina, dayContent) {
             const tipoClass = rutina.tipo === 'crossfit' ? 'tipo-crossfit' : 'tipo-musculacion';
             const tipoIcon = rutina.tipo === 'crossfit' ? '🔥' : '💪';
-            const tipoLabel = rutina.tipo === 'crossfit' ? 'CROSSFIT' : 'MUSCULACIÓN';
+            const tipoLabel = rutina.tipo === 'crossfit' ? 'CROSSFIT / FUNCIONAL' : 'MUSCULACIÓN';
             const profesorNombre = rutina.profesor?.nombre || '';
 
             // Section configs differ by type
@@ -943,7 +943,7 @@
 
             const tipoClass = rutina.tipo === 'crossfit' ? 'tipo-crossfit' : 'tipo-musculacion';
             const tipoIcon = rutina.tipo === 'crossfit' ? '🔥' : '💪';
-            const tipoLabel = rutina.tipo === 'crossfit' ? 'CROSSFIT' : 'MUSCULACIÓN';
+            const tipoLabel = rutina.tipo === 'crossfit' ? 'CROSSFIT / FUNCIONAL' : 'MUSCULACIÓN';
             const profesorNombre = rutina.profesor?.nombre || '';
 
             let sectionsHtml = '';
@@ -1061,7 +1061,7 @@
         function renderLegacyRutina(rutina) {
             const tipoClass = rutina.tipo === 'crossfit' ? 'tipo-crossfit' : 'tipo-musculacion';
             const tipoIcon = rutina.tipo === 'crossfit' ? '🔥' : '💪';
-            const tipoLabel = rutina.tipo === 'crossfit' ? 'CROSSFIT' : 'MUSCULACIÓN';
+            const tipoLabel = rutina.tipo === 'crossfit' ? 'CROSSFIT / FUNCIONAL' : 'MUSCULACIÓN';
             const profesorNombre = rutina.profesor?.nombre || '';
 
             return `
